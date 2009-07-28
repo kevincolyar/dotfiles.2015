@@ -1,2 +1,9 @@
 export PATH="~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin:$PATH"
 export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
+
+export PATH=/usr/local/git/bin:$PATH
+
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/opt/local/bin:/opt/local/sbin:$PATH" 
+export PATH="~/bin/:~/bin/ssh:~/bin/rsync:$PATH"
+export PATH=":~/bin/wireshark:$PATH"
+export PATH="/usr/local/src/ec2-api-tools/bin:$PATH"

@@ -1,2 +1,37 @@
 export PS1="\w$ "
-export EDITOR="mate -w"
+
+export CLICOLOR=1
+export LSCOLORS=ExFxCxDxBxegedabagacad
+export GREP_OPTIONS='--color=auto'
+export GREP_COLOR='1;33'
+
+export EDITOR=vim  
+alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
+
+# ODBC
+export ODBCINI=/usr/local/etc
+export ODBCSYSINI=/usr/local/etc
+export FREETDSCONF=/usr/local/etc/freetds.conf
+
+# Oracle
+export ORACLE_HOME=/Library/Oracle/instantclient/10.2.0.4
+export TNS_ADMIN=$ORACLE_HOME
+export LD_LIBRARY_PATH=$ORACLE_HOME
+export DYLD_LIBRARY_PATH=$ORACLE_HOME
+export PATH=$PATH:$ORACLE_HOME
+
+# j2
+export JPY=~/bin/j2/j.py # tells j.sh where the python script is
+. ~/bin/j2/j.sh          # provides the j() function
+
+# Amazon
+export EC2_HOME="/usr/local/src/ec2-api-tools"
+
+# Java
+export JAVA_HOME="/Library/Java/Home"
+
+# Ruby
+alias irb='irb --readline -r irb/completion'
+alias rii='ri -Tf ansi'
+
+test -r /sw/bin/init.sh && . /sw/bin/init.sh
