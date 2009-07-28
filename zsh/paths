@@ -1,20 +1,36 @@
 
-export PATH="~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin:$PATH"
+export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin:$PATH"
 
 # Man
 export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
 
 # git
-export PATH=/usr/local/git/bin:$PATH
+export PATH="/usr/local/git/bin:$PATH"
 
 # Opt
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH" 
 
 # Home bin
-export PATH="~/bin/:~/bin/ssh:~/bin/rsync:$PATH"
+export PATH="$HOME/bin/:$HOME/bin/ssh:$HOME/bin/rsync:$PATH"
 
 # Wireshark
-export PATH=":~/bin/wireshark:$PATH"
+export PATH="$HOME/bin/wireshark:$PATH"
 
 # Amazon EC2
 export PATH="/usr/local/src/ec2-api-tools/bin:$PATH"
+
+# ODBC
+export ODBCINI=/usr/local/etc
+export ODBCSYSINI=/usr/local/etc
+export FREETDSCONF=/usr/local/etc/freetds.conf
+
+# Oracle
+export ORACLE_HOME=/Library/Oracle/instantclient/10.2.0.4
+export TNS_ADMIN=$ORACLE_HOME
+export LD_LIBRARY_PATH=$ORACLE_HOME
+export DYLD_LIBRARY_PATH=$ORACLE_HOME
+export PATH=$PATH:$ORACLE_HOME
+
+# Java
+export JAVA_HOME="/Library/Java/Home"
+
