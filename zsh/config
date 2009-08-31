@@ -6,6 +6,9 @@ fi
 
 export EDITOR='vim'
 
+export GREP_OPTIONS='--color=auto'
+export GREP_COLOR='1;33'
+
 fpath=(~/.zsh/functions $fpath)
 
 autoload -U ~/.zsh/functions/*(:t)

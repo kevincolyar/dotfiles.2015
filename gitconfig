@@ -7,8 +7,9 @@
 	diff = auto
 	status = auto
 	branch = auto
+	ui = true
 [core]
 	excludesfile = /Users/kevincolyar/.gitignore
-	editor = vim 
+	editor = vim
 [apply]
 	whitespace = nowarn
