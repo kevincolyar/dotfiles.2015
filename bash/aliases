@@ -15,4 +15,3 @@ function railsapp {
 # misc
 alias reload='. ~/.bash_profile'
 
-alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
