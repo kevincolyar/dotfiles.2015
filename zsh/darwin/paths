@@ -1,0 +1,14 @@
+# ODBC
+export ODBCINI=/usr/local/etc
+export ODBCSYSINI=/usr/local/etc
+export FREETDSCONF=/usr/local/etc/freetds.conf
+
+# Oracle
+export ORACLE_HOME=/Library/Oracle/instantclient/10.2.0.4
+export TNS_ADMIN=$ORACLE_HOME
+export LD_LIBRARY_PATH=$ORACLE_HOME
+export DYLD_LIBRARY_PATH=$ORACLE_HOME
+export PATH=$PATH:$ORACLE_HOME
+
+# Java
+export JAVA_HOME="/Library/Java/Home"
