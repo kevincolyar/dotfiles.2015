@@ -9,7 +9,7 @@
 	branch = auto
 [core]
 	excludesfile = <%= ENV['HOME'] %>/.gitignore
-	editor = mate -w
+	editor = vim 
 [apply]
 	whitespace = nowarn
 
@@ -17,3 +17,4 @@
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 [diff] 
   external = "/Users/kevinc/bin/git-diff-driver.sh"
+

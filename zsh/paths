@@ -20,3 +20,5 @@ export PATH="$HOME/bin/wireshark:$PATH"
 export PATH="/usr/local/src/ec2-api-tools/bin:$PATH"
 
 
+# git achievements
+export PATH="$HOME/bin/git/git-achievements:$PATH"
