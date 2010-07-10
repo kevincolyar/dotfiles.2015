@@ -17,4 +17,6 @@
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 [diff] 
   external = "/Users/kevinc/bin/git-diff-driver.sh"
-
+[github]
+	user = <%= print("Your Github Username: "); STDOUT.flush; STDIN.gets.chomp %>
+	token = <%= print("Your Github Token: "); STDOUT.flush; STDIN.gets.chomp %>
