@@ -3,6 +3,7 @@
 . ~/.zsh/completion
 . ~/.zsh/paths
 . ~/.zsh/oh-my-zsh
+. ~/.zsh/rvm
 
 if [ `uname` = "Darwin" ]; then
   . ~/.zsh/darwin/aliases
@@ -11,4 +12,3 @@ elif [ `uname` = "Linux" ]; then
   . ~/.zsh/linux/aliases
   . ~/.zsh/linux/paths
 fi
-
