@@ -1,6 +1,8 @@
 require 'rake'
 require 'erb'
 
+task :default => :install
+
 desc "install the dot files into user's home directory"
 task :install do
   replace_all = false
@@ -28,6 +30,8 @@ task :install do
       link_file(file)
     end
   end
+
+  update_git_submodules
 end
 
 def replace_file(file)
@@ -45,4 +49,10 @@ def link_file(file)
     puts "linking ~/.#{file}"
     system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
   end
+end
+
+def update_git_submodules
+  puts "Updating git submodules..."
+  system "git submodule init"
+  system "git submodule update"
 end
