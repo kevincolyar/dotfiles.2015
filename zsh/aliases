@@ -7,6 +7,9 @@ alias l="ls -lAhG"
 alias ll="ls -lG"
 alias la='ls -AG'
 
+# ls
+alias less="less -R"
+
 # git
 alias gl='git pull'
 alias gp='git push'
@@ -31,3 +34,6 @@ alias rst='touch tmp/restart.txt'
 # commands starting with % for pasting from web
 alias %=' '
 
+# Globbing issues
+alias curl='noglob curl'
+alias git='noglob git'

@@ -13,12 +13,3 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 # Home bin
 export PATH="$HOME/bin/:$HOME/bin/ssh:$HOME/bin/rsync:$PATH"
 
-# Wireshark
-export PATH="$HOME/bin/wireshark:$PATH"
-
-# Amazon EC2
-export PATH="/usr/local/src/ec2-api-tools/bin:$PATH"
-
-
-# git achievements
-export PATH="$HOME/bin/git/git-achievements:$PATH"
