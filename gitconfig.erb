@@ -1,6 +1,9 @@
+<% require 'yaml' %>
+<% config = YAML.load_file('git.yml') %>
+
 [user]
-	name = <%= print("Your Name: "); STDOUT.flush; STDIN.gets.chomp %>
-	email = <%= print("Your Email: "); STDOUT.flush; STDIN.gets.chomp %>
+	name = <%= config['name'] %>
+	email = <%= config['email'] %>
 [alias]
 	co = checkout
 [color]
@@ -12,11 +15,10 @@
 	editor = vim 
 [apply]
 	whitespace = nowarn
-
 [alias]
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 [diff] 
-  external = "/Users/kevinc/bin/git-diff-driver.sh"
+	external = <%= config['diff']['user'] %>
 [github]
-	user = <%= print("Your Github Username: "); STDOUT.flush; STDIN.gets.chomp %>
-	token = <%= print("Your Github Token: "); STDOUT.flush; STDIN.gets.chomp %>
+	user = <%= config['github']['user'] %>
+	token = <%= config['github']['token'] %>

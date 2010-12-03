@@ -1,0 +1,9 @@
+name: Kevin Colyar
+email: kevin@colyar.net
+
+github: 
+  user: kevincolyar
+  token: 
+
+diff:
+  external: /Users/kevinc/bin/git-diff-driver.sh
