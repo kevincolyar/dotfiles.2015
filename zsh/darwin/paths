@@ -12,3 +12,7 @@ export PATH=$PATH:$ORACLE_HOME
 
 # Java
 export JAVA_HOME="/Library/Java/Home"
+
+# Vim
+export EDITOR="/Applications/MacVim.app/Contents/MacOS/Vim"
+export GIT_EDITOR="/Applications/MacVim.app/Contents/MacOS/Vim"
