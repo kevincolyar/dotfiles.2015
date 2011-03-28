@@ -7,7 +7,7 @@ desc "install the dot files into user's home directory"
 task :install do
   replace_all = false
   Dir['*'].each do |file|
-    next if %w[Rakefile README.rdoc LICENSE git.yml].include? file
+    next if %w[Rakefile README.rdoc LICENSE git.yml zsh-syntax-highlighting].include? file
     
     if File.exist?(File.join(ENV['HOME'], ".#{file.sub('.erb', '')}"))
       if replace_all
@@ -32,6 +32,7 @@ task :install do
   end
 
   update_git_submodules
+  link_zsh_syntax_highlighting
 end
 
 def replace_file(file)
@@ -49,6 +50,10 @@ def link_file(file)
     puts "linking ~/.#{file}"
     system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
   end
+end
+
+def link_zsh_syntax_highlighting
+  system("ln -s $PWD/zsh-syntax-highlighting $PWD/oh-my-zsh/plugins/zsh-syntax-highlighting")
 end
 
 def update_git_submodules

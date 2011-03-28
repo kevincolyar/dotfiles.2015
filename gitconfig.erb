@@ -17,8 +17,16 @@
 	whitespace = nowarn
 [alias]
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+
+<% unless config['diff'].nil? %>
 [diff] 
 	external = <%= config['diff']['external'] %>
+<% end %>
+
+[mergetool "diffmerge"]
+        cmd = diffmerge --merge --result=$MERGED $LOCAL $BASE $REMOTE
+        trustExitCode = false
+
 [github]
 	user = <%= config['github']['user'] %>
 	token = <%= config['github']['token'] %>

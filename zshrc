@@ -1,8 +1,8 @@
+. ~/.zsh/oh-my-zsh
 . ~/.zsh/config
 . ~/.zsh/aliases
 . ~/.zsh/completion
 . ~/.zsh/paths
-. ~/.zsh/oh-my-zsh
 . ~/.zsh/rvm
 
 if [ `uname` = "Darwin" ]; then
