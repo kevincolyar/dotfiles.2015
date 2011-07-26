@@ -48,3 +48,7 @@ for keymap in v a; do
   bindkey -$keymap ^f  history-incremental-search-backward
 done
 
+. ~/.zsh/bin/z.sh
+function precmd () {
+  _z --add "$(pwd -P)"
+}
