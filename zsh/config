@@ -43,12 +43,28 @@ bindkey '^[[3~' delete-char
 bindkey '^[^N' newtab
 bindkey '^?' backward-delete-char 
 
-# See http://www.contextualdevelopment.com/articles/2006/zsh_history_searching
-for keymap in v a; do
-  bindkey -$keymap ^f  history-incremental-search-backward
-done
-
 . ~/.zsh/bin/z.sh
 function precmd () {
   _z --add "$(pwd -P)"
 }
+
+# See http://www.contextualdevelopment.com/articles/2006/zsh_history_searching
+for keymap in v a; do
+  bindkey -$keymap ^n  history-incremental-search-backward
+done
+
+# History settings
+HISTSIZE=100
+SAVEHIST=100
+HISTFILE=~/.zsh/history
+setopt append_history
+setopt inc_append_history
+setopt extended_history
+setopt hist_find_no_dups
+setopt hist_ignore_all_dups
+setopt hist_reduce_blanks
+setopt hist_ignore_space
+setopt hist_no_store
+setopt hist_no_functions
+setopt no_hist_beep
+setopt hist_save_no_dups
