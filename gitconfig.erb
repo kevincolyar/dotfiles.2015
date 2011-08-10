@@ -20,6 +20,9 @@
 [apply]
 	whitespace = nowarn
 
+[init]
+  templatedir = ~/.git_template
+
 <% unless config['diff'].nil? %>
 [diff] 
 	external = <%= config['diff']['external'] %>
