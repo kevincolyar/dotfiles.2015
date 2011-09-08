@@ -23,11 +23,10 @@ the following command.
     chsh -s /bin/zsh
 
 
-Development
+Download
 ===========
+```sh
 
-Merge in latest oh-my-zsh submodule
+  $ curl -L https://github.com/kevincolyar/dotfiles/tarball/master | tar zx
 
-    cd oh-my-zsh
-    git remote add robbyrussell https://github.com/robbyrussell/oh-my-zsh
-    git merge robbyrussell/master
+```
