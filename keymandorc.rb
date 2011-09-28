@@ -13,11 +13,11 @@ def reload_configuration
   lambda{ growl("Configuration reloaded successfully") if reload}
 end
 
-# ViKing can ignore entire applications
+# Keymando can ignore entire applications
 disable "Remote Desktop Connection"
 disable /VirtualBox/
 
-# Enable/disable ViKing
+# Enable/disable Keymando
 toggle "<Ctrl-E>"
 
 # Basic mapping
@@ -46,7 +46,10 @@ except /iTerm/, "MacVim" do
   map "<Ctrl-Shift-l>", "<Shift-Right>"
 
   # Right mouse click
-  map "<Ctrl-r>" { right_click }
+  map "<Ctrl-r>" do 
+    left_click
+    # alert(mouse_x)
+  end
 
 end
 
@@ -68,7 +71,7 @@ only /Chrome/ do
 end
 
 
-# Reload .vikingrc
+# Reload .keymandorc.rb
 map "<Ctrl-R>" { reload }
 
 # You can speak
