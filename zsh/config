@@ -10,9 +10,6 @@ fpath=(~/.zsh/functions $fpath)
 
 autoload -U ~/.zsh/functions/*(:t)
 
-HISTFILE=~/.zsh_history
-HISTSIZE=1000
-SAVEHIST=1000
 REPORTTIME=10 # print elapsed time when more than 10 seconds
 
 setopt NO_BG_NICE # don't nice background tasks
@@ -20,18 +17,10 @@ setopt NO_HUP
 setopt NO_LIST_BEEP
 setopt LOCAL_OPTIONS # allow functions to have local options
 setopt LOCAL_TRAPS # allow functions to have local traps
-setopt HIST_VERIFY
-setopt SHARE_HISTORY # share history between sessions ???
-setopt EXTENDED_HISTORY # add timestamps to history
 setopt PROMPT_SUBST
 setopt CORRECT
 setopt COMPLETE_IN_WORD
 setopt IGNORE_EOF
-
-setopt APPEND_HISTORY # adds history
-setopt INC_APPEND_HISTORY SHARE_HISTORY  # adds history incrementally and share it across sessions
-setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
-setopt HIST_REDUCE_BLANKS
 
 zle -N newtab
 
@@ -48,11 +37,6 @@ function precmd () {
   _z --add "$(pwd -P)"
 }
 
-# See http://www.contextualdevelopment.com/articles/2006/zsh_history_searching
-for keymap in v a; do
-  bindkey -$keymap ^n  history-incremental-search-backward
-done
-
 # History settings
 HISTSIZE=100
 SAVEHIST=100
@@ -68,3 +52,11 @@ setopt hist_no_store
 setopt hist_no_functions
 setopt no_hist_beep
 setopt hist_save_no_dups
+setopt hist_verify
+setopt share_history # share history between sessions ???
+
+# See http://www.contextualdevelopment.com/articles/2006/zsh_history_searching
+for keymap in v a; do
+  bindkey -$keymap ^n  history-incremental-search-backward
+done
+
