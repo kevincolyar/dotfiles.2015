@@ -2,10 +2,10 @@
 alias ..='cd ..'
 
 # ls
-alias ls="ls -FG"
+alias ls="ls -FGh"
 alias l="ls -lAhG"
-alias ll="ls -lG"
-alias la='ls -AG'
+alias ll="ls -lGh"
+alias la='ls -AGh'
 
 # ls
 alias less="less -R"
