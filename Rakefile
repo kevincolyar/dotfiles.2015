@@ -33,6 +33,13 @@ task :install do
 
 end
 
+
+namespace :install do
+  task :vundle do
+    system "git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle"
+  end
+end
+
 def replace_file(file)
   system %Q{rm "$HOME/.#{file}"}
   link_file(file)
@@ -42,3 +49,4 @@ def link_file(file)
   puts "linking ~/.#{file}"
   system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
 end
+
