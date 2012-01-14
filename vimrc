@@ -1,42 +1,55 @@
-set nocompatible
+set nocompatible               " Use vim features
 
 filetype off
-
-"load ftplugins and indent files
-filetype plugin on
-filetype indent on
-
-colorscheme molokai
-syntax on                      "turn on syntax highlighting
+colorscheme molokai            " Color scheme
+syntax on                      " Turn on syntax highlighting
 
 " - Settings ---------------------------------------------------------- "
  
-" do not redraw while running macros (much faster) (LazyRedraw)
-set lazyredraw
-set clipboard=unnamed
-set cursorline
-set number
-set history=1000
-set laststatus=2                "always show status bar
+set shell=/bin/sh               " Ensure vim always runs from a shell, rvm needs this.
+set lazyredraw                  " Do not redraw while running macros (much faster) (LazyRedraw)
+set clipboard=unnamed           " Use the OSX pasteboard
+set cursorline                  " Highlight line curor is on
+set number                      " Show line numbers
+set history=1000                " Lots of history
+set laststatus=2                " Always show status bar
 
-set showcmd     		"show incomplete cmds down the bottom
-set showmode    		"show current mode down the bottom
+set showcmd     		" Show incomplete cmds down the bottom
+set showmode    		" Show current mode down the bottom
 
-set incsearch   		"find the next match as we type the search
-set hlsearch    		"hilight searches by default
+set incsearch   		" Find the next match as we type the search
+set hlsearch    		" Hilight searches by default
 
-set nowrap      		"dont wrap lines
-set linebreak   		"wrap lines at convenient points
+set nowrap      		" Dont wrap lines
+set linebreak   		" Wrap lines at convenient points
 
-set ignorecase  		"Ignore case in searches
-set nohlsearch  	  	"Turn off highlighting when done searching
+set ignorecase  		" Ignore case in searches
+set nohlsearch  	  	" Turn off highlighting when done searching
 
 set tags=./tags 		" Ctags
 set complete=.,t,b		" Use ctags and current buffer for completion
 set grepprg=ack			" Using ack instead of grep
 
-" Use visual bell instead of audible bell
-set vb
+set vb                          " Use visual bell instead of audible bell
+set hidden                      " Hide buffers when not displayed
+set t_Co=256                    " Enable 256 color
+set noswapfile                  " It's 2012, Vim.
+
+set foldmethod=syntax           "fold based on syntax
+set foldnestmax=3               "deepest fold is 3 levels
+set nofoldenable                "dont fold by default
+
+set wildmode=list:longest       "make cmdline tab completion similar to bash
+set wildmenu                    "enable ctrl-n and ctrl-p to scroll thru matches
+set wildignore=*.o,*.obj,*~     "stuff to ignore when tab completing
+set wildignore+=vendor/rails/**
+set wildignore+=*.swp
+set wildignore+=*/build/**
+
+set listchars=tab:▸\ ,eol:¬     " Tabs and trailing space characters
+set nolist                      " Off by default
+
+set formatoptions-=o            " Dont continue comments when pushing o/O
 
 " Setup back directory, where all .sw* files are kept
 set backupdir=/var/tmp/
@@ -48,33 +61,10 @@ set softtabstop=2
 set expandtab
 set autoindent
 
-"folding settings
-set foldmethod=syntax   "fold based on syntax
-set foldnestmax=3       "deepest fold is 3 levels
-set nofoldenable        "dont fold by default
-
-set wildmode=list:longest   "make cmdline tab completion similar to bash
-set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
-set wildignore+=vendor/rails/**
-set wildignore+=*.swp
-set wildignore+=*/build/**
-
-"display tabs and trailing spaces
-set nolist
-set listchars=tab:▸\ ,eol:¬
-
-set formatoptions-=o "dont continue comments when pushing o/O
-
 "vertical/horizontal scroll off settings
 set scrolloff=3
 set sidescrolloff=7
 set sidescroll=1
-
-"hide buffers when not displayed
-set hidden
-
-set t_Co=256
 
 " - Vundle ---------------------------------------------------------- "
  
@@ -82,7 +72,6 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-git'
@@ -92,11 +81,9 @@ Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-ragtag'
 Bundle 'tpope/vim-cucumber'
 Bundle 'tpope/vim-repeat'
-Bundle 'msanders/snipmate.vim'
 Bundle 'msanders/cocoa.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
-Bundle 'scrooloose/snipmate-snippets'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'kien/ctrlp.vim'
 Bundle 'esukram/taglist.vim'
@@ -115,7 +102,13 @@ Bundle 'derekwyatt/vim-fswitch'
 Bundle 'godlygeek/tabular'
 Bundle 'gregsexton/MatchTag'
 
-filetype plugin indent on
+" Snipmate
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "snipmate-snippets"
+Bundle "garbas/vim-snipmate"
+
+filetype plugin indent on      " Load ftplugins and indent files
 
 " - Variables ------------------------------------------------------------- "
  
@@ -126,7 +119,7 @@ let localvimrc_ask=0
 
 let g:Powerline_symbols='fancy'
 
-" mark syntax errors with :signs
+" Syntastic
 " let g:syntastic_enable_signs=1
 
 " CtrlP
@@ -134,11 +127,11 @@ let g:ctrlp_map = '<Leader>t'
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_max_depth = 20
 let g:ctrlp_user_command = "find %s '(' -type f -or -type l ')' -maxdepth " . g:ctrlp_max_depth . " -not -path '*/\.*/*' | egrep -v '\.(swp|swo|log|gitkeep|keepme|so|o)$'"
+let g:ctrlp_dont_split = 'NERD_tree_2'  " let ctrlp open up in that initial window, but future ones (which are really thin sidebars) will still jump out.
 
 " NerdTree
 let NERDTreeWinSize=50
 let NERDTreeDirArrows=1
-let NERDTreeHijackNetrw=0
 
 " Gist
 let g:gist_open_browser_after_post = 1
@@ -171,17 +164,19 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" Show whitespace and newline characters
 nmap <leader>l :set list!<CR>
 
+" Toggle NERDTree
 nmap <silent> <leader>o :NERDTreeToggle<CR>
 
 " bind control-l to hashrocket
 imap <C-l> <Space>=><Space>
 
-" make Y consistent with C and D
+" Make Y consistent with C and D
 nnoremap Y y$
 
-"map ot ack
+" Ack
 nnoremap <c-a> :Ack 
 
 " Auto-completion for command line mode
@@ -218,5 +213,7 @@ autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | se
 autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
 
 " Arduino
-au BufNewFile,BufRead *.pde setf arduino
+autocmd BufNewFile,BufRead *.pde set filetype=arduino
 
+" Objective-C
+autocmd BufNewFile,BufRead *.m set filetype=objc
