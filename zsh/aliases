@@ -41,3 +41,9 @@ alias git='noglob git'
 
 # Force Tmux into utf mode
 alias t='tmux -u'
+
+# Syntax highlighting for cat and less
+alias pcat=pygmentize
+function pless() {
+  pcat "$1" | less -R
+}
