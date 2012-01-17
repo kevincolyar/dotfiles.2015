@@ -66,6 +66,38 @@ set scrolloff=3
 set sidescrolloff=7
 set sidescroll=1
 
+" GUI Settings
+if has('gui_running')
+    set guifont=Menlo\ Regular\ for\ Powerline:h13
+
+    " Remove all the UI cruft
+    set go-=T
+    set go-=l
+    set go-=L
+    set go-=r
+    set go-=R
+
+    highlight SpellBad term=underline gui=undercurl guisp=Orange
+
+    " Use a line-drawing char for pretty vertical splits.
+    set fillchars+=vert:│
+
+    " Different cursors for different modes.
+    set guicursor=n-c:block-Cursor-blinkon0
+    set guicursor+=v:block-vCursor-blinkon0
+    set guicursor+=i-ci:ver20-iCursor
+
+    if has("gui_macvim")
+        " Full screen means FULL screen
+        set fuoptions=maxvert,maxhorz
+    else
+        " Non-MacVim GUI, like Gvim
+    end
+else
+    " Console Vim
+endif
+
+
 " - Vundle ---------------------------------------------------------- "
  
 set rtp+=~/.vim/bundle/vundle/
@@ -185,6 +217,9 @@ nmap <leader>p iputs "
 imap <leader>p puts "
 map <leader># i#{
 imap <leader># #{
+
+" - Abbreviations ---------------------------------------------------- "
+cnoreabbrev ack Ack  " Alias ack command
 
 " - Auto Commands ---------------------------------------------------- "
 
