@@ -178,7 +178,7 @@ if has("macunix")
 endif
 
 " dbext
-let g:dbext_default_profile_myconnection='type=ODBC:user=dc\kevinc:passwd=Sp0tl!ght:dsnname=Staging_DCCN_Universe:dbname=Staging_DCCN_Universe'
+let g:dbext_default_profile_myconnection='type=ODBC:user=:passwd=:dsnname=:dbname='
 let g:dbext_default_profile = 'myconnection'
 
 " - Maps ----------------------------------------------------------------- "
