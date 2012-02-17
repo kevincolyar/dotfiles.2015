@@ -44,7 +44,6 @@ set wildmenu                    "enable ctrl-n and ctrl-p to scroll thru matches
 set wildignore=*.o,*.obj,*~     "stuff to ignore when tab completing
 set wildignore+=vendor/rails/**
 set wildignore+=*.swp
-set wildignore+=*/build/**
 
 set listchars=tab:▸\ ,eol:¬     " Tabs and trailing space characters
 set nolist                      " Off by default
@@ -65,6 +64,9 @@ set autoindent
 set scrolloff=3
 set sidescrolloff=7
 set sidescroll=1
+
+" Set the preview window height.  Used by fugitve plugin
+set previewheight=25
 
 " GUI Settings
 if has('gui_running')
@@ -133,11 +135,12 @@ Bundle 'vim-scripts/tComment'
 Bundle 'derekwyatt/vim-fswitch'
 Bundle 'godlygeek/tabular'
 Bundle 'gregsexton/MatchTag'
+Bundle 'https://github.com/vim-scripts/dbext.vim.git'
 
 " Snipmate
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
-Bundle "snipmate-snippets"
+Bundle "juracy/snipmate-snippets"
 Bundle "garbas/vim-snipmate"
 
 filetype plugin indent on      " Load ftplugins and indent files
@@ -156,13 +159,14 @@ let g:Powerline_symbols='fancy'
 
 " CtrlP
 let g:ctrlp_map = '<Leader>t'
+let g:ctrlp_max_height = 20
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_max_depth = 20
-let g:ctrlp_user_command = "find %s '(' -type f -or -type l ')' -maxdepth " . g:ctrlp_max_depth . " -not -path '*/\.*/*' | egrep -v '\.(swp|swo|log|gitkeep|keepme|so|o)$'"
+let g:ctrlp_user_command = "find %s '(' -type f -or -type l ')' -maxdepth " . g:ctrlp_max_depth . " -not -path '*/\.*/*' | egrep -v '\.(swp|swo|log|gitkeep|keepme|so|o)$' | egrep -v '.*\/(build|log|vendor)\/.*'"
 let g:ctrlp_dont_split = 'NERD_tree_2'  " let ctrlp open up in that initial window, but future ones (which are really thin sidebars) will still jump out.
 
 " NerdTree
-let NERDTreeWinSize=50
+let NERDTreeWinSize=40
 let NERDTreeDirArrows=1
 
 " Gist
@@ -172,6 +176,10 @@ let g:gist_open_browser_after_post = 1
 if has("macunix")
   let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"
 endif
+
+" dbext
+let g:dbext_default_profile_myconnection='type=ODBC:user=dc\kevinc:passwd=Sp0tl!ght:dsnname=Staging_DCCN_Universe:dbname=Staging_DCCN_Universe'
+let g:dbext_default_profile = 'myconnection'
 
 " - Maps ----------------------------------------------------------------- "
 
@@ -213,13 +221,19 @@ nnoremap <c-a> :Ack
 
 " Auto-completion for command line mode
 cmap <C-n> <Up>
+
 nmap <leader>p iputs "
 imap <leader>p puts "
 map <leader># i#{
 imap <leader># #{
 
+inoremap jk <esc>
+inoremap <esc> <nop>
+inoremap <c-[> <nop>
+
+
 " - Abbreviations ---------------------------------------------------- "
-cnoreabbrev ack Ack  " Alias ack command
+cnoreabbrev ack Ack
 
 " - Auto Commands ---------------------------------------------------- "
 
@@ -252,3 +266,31 @@ autocmd BufNewFile,BufRead *.pde set filetype=arduino
 
 " Objective-C
 autocmd BufNewFile,BufRead *.m set filetype=objc
+
+" Rspec/Cucumber
+autocmd BufNewFile,BufRead *.feature,*_spec.rb map <leader>e :call RunCurrentLineTestTest()<cr>
+autocmd BufNewFile,BufRead *.feature,*_spec.rb map <leader>f :call RunCurrentTest()<cr>
+
+" - Functions ------------------------------------------------------- "
+
+function! RunCurrentTest()
+  execute "!" . CorrectTestRunner() " --drb" expand('%:p')
+endfunction
+
+function! RunCurrentLineTestTest()
+  execute "!" . CorrectTestRunner() " --drb" expand('%:p') . ":" . line(".")
+endfunction
+
+function! CorrectTestRunner()
+  if match(expand("%"), "\.feature$") != -1
+    return "cucumber"
+  elseif match(expand("%"), "keymando.*unit.*_spec\.rb$") != -1
+    return "keymando/spec/unit/vim_rspec -c"
+  elseif match(expand("%"), "keymando.*integration.*_spec\.rb$") != -1
+    return "keymando/spec/integration/vim_rspec -c"
+  elseif match(expand("%"), "_spec\.rb$") != -1
+    return "rspec -c"
+  endif
+endfunction
+
+
