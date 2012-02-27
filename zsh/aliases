@@ -47,3 +47,5 @@ alias pcat=pygmentize
 function pless() {
   pcat "$1" | less -R
 }
+
+alias vi='vim'

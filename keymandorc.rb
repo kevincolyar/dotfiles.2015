@@ -14,14 +14,14 @@ def reload_configuration
 end
 
 # Keymando can ignore entire applications
-disable "Remote Desktop Connection"
+
 disable /VirtualBox/
 
 # Enable/disable Keymando
 toggle "<Ctrl-E>"
 
 # Basic mapping
-nmap "<Ctrl-[>", "<Escape>"
+map "<Ctrl-[>", "<Escape>"
 map "<Ctrl-m>", "<Ctrl-F2>"
 
 # Lets disable those pesky arrows 
@@ -66,13 +66,21 @@ end
 only /Chrome/ do
   map "<Ctrl-h>", "<Cmd-{>"
   map "<Ctrl-l>", "<Cmd-}>"
+  map '<Ctrl-a>p', '<Cmd-{>'
+  map '<Ctrl-a>n', '<Cmd-}>'
+  map '<Ctrl-w>h', '<Cmd-{>'
+  map '<Ctrl-w>l', '<Cmd-}>'
   map "<Ctrl-u>", "<PageUp>"
   map "<Ctrl-d>", "<PageDown>"
+  map ',r', '<Cmd-r>'
+  map ',t', '<Cmd-t>'
+  map ',l', '<Cmd-y>'
+  map ',w', '<Cmd-w>'
 end
 
 
 # Reload .keymandorc.rb
-map "<Ctrl-R>" { reload }
+# map "<Ctrl-R>" { reload }
 
 # You can speak
 map "<Ctrl-S>" { say "Hello, world." }
@@ -107,8 +115,8 @@ end
 # map "nname", type("Kevin Colyar")
 
 # Application switching
-map "<Cmd-p>" { application_previous }
-map "<Cmd-n>" { application_next }
+# map "<Cmd-p>" { application_previous }
+# map "<Cmd-n>" { application_next }
 
 # map "<Cmd-n>" do 
 #   input do |answer|
@@ -148,7 +156,7 @@ map "<Cmd-y>" do
     #-----------------------------------------------------------
     #general
     #-----------------------------------------------------------
-    "rel" => reload_configuration,
+    # "rel" => reload_configuration,
     "ls" => lock_the_screen,
     "mi" => send_keys("<Cmd-Shift-U>"), #trigger_quicksilver_menu_items
     "x" => send_keys("<Cmd-q>"), #quit current application
@@ -156,6 +164,7 @@ map "<Cmd-y>" do
     "qs" => send_keys("<Cmd- >"),
     "s" => lambda{say(prompt("Say Something"))},
     "spp" => send_keys("kevinc<Tab>#{Passwords[:sharepoint]}<Return>"),
+    "p" => send_keys(Passwords[:main]),
     "rc" => lambda {
       activate("Google Chrome")
       sleep(1)
@@ -207,11 +216,16 @@ map "<Cmd-y>" do
     },
     "etm" => lambda {
       system('diskutil umount "/Volumes/Time Machine Backups"')
-    }
+    },
+    "sn" => lambda { Spotify.next },
+    "sp" => lambda { Spotify.play_pause },
+    "ct" => lambda { Spotify.current_track }
+
     #end_general------------------------------------------------
     )
 
 end
+
 #end_general_mnemonic_mappings----------------------------------
 
 
@@ -231,20 +245,12 @@ only 'TextEdit' do
   # map 'test', lambda { alert('haha')}
 end
 
-only /Chrome/ do
-  map '<Ctrl-a>p', '<Cmd-{>'
-  map '<Ctrl-a>n', '<Cmd-}>'
-  map '<Ctrl-w>h', '<Cmd-{>'
-  map '<Ctrl-w>l', '<Cmd-}>'
-end
-
-# map "<Cmd-l>", get_controls
-
 map "<Cmd-Shift-.>" { growl('Hello, World') }
 
 # Mac Outlook
 only /Outlook/ do
   nmap "#", "<Delete>"
+  nmap "c", "<Cmd-n>"
   nmap "y" do
     send("<Cmd-Shift-m>")
     send("Archive<Enter>")
@@ -273,12 +279,12 @@ map "<Ctrl-f>" { get_controls }
 only /TextEdit/ do
   abbrev "nname", "Kevin Colyar"
 end
+abbrev 'nname', 'Kevin Colyar'
 abbrev 'ttime' { send(Time.now.strftime('%I:%M%p')) }
-abbrev 'eemail' do 
-  send("kevin@colyar.net<Return>"*10)
-end
+abbrev 'ddate' { send(Time.now.strftime('%m/%d/%Y')) }
+abbrev 'eemail', 'kevin@colyar.net'
 
-abbrev 'addr', '123 Test Street, New York, NY, 12345'
+abbrev 'addr', '1123 Fuller St., Wenatchee, WA, 98801'
 abbrev 'teh', 'the'
 
 map '<cmd-down>' { alert(Keymando.version)}
@@ -287,11 +293,11 @@ only /Xcode/ do
   map ',r', '<Cmd-r>'
 end
 
-abbrev 'cclass' do 
-  name = prompt("Enter Class Name")
-  template = "class #{name}<Return>  def initialize()<Return>  end<Return>end"
-  send(template)
-end
+# abbrev 'cclass' do 
+#   name = prompt("Enter Class Name")
+#   template = "class #{name}<Return>  def initialize()<Return>  end<Return>end"
+#   send(template)
+# end
 
 # abbrev 'test' do 
 #   pasteBoard = NSPasteboard.generalPasteboard
@@ -311,4 +317,84 @@ end
 # end
 #
 
+# map "<Alt-k>" { alert Spotify.methods}
+# map "<Alt-k>" { Keychain.unlock }
+map "<Alt-j>" { ITunes.volume_down }
+map "<Alt-k>" { ITunes.volume_up }
 
+
+ # map "<Cmd-b>t" { Quicksilver.large_type Time.now.strftime('%y/%m/%d %H:%M %a')}
+ # map "<Cmd-b>d" { Quicksilver.large_type Time.now.strftime('%m/%d %A') }
+ # map "<Cmd-b>l" { Quicksilver.large_type "I Love U" }
+
+only /Quicksilver/ do
+  map "<alt-l>" { alert('test')}
+end
+
+# NEW STUFF -------------
+
+Commands.register LeftClick.instance, 
+  RightClick.instance,
+  RunHistoryItem.instance,
+  LockTheScreen.instance,
+  UiControls.instance
+
+
+command 'Reload' { alert('Reloaded Successfully') if reload }
+
+command 'Eject Time Machine', :remember => true do
+  system('diskutil umount "/Volumes/Time Machine Backups"')
+end
+
+command "Chrome - Refresh" do
+  activate('Google Chrome')
+  send("<Cmd-r>")
+end
+
+ApplicationLauncher.register('/Applications', :max_depth => 2)
+ApplicationLauncher.register('/Developer/Applications', :max_depth => 3)
+
+ChromeBookmarks.register('/Users/kevinc/Library/Application Support/Google/Chrome/Default/Bookmarks')
+
+# map "<Cmd-d>", current_app_windows
+# map "<Cmd-f>", trigger_app
+ 
+map "<Cmd-h>", UiControls.instance
+
+class RunRegisteredCommand                                                                                                                                                                                               
+  def run_using(item)                                                                                                                                                                                                    
+    item.run                                                                                                                                                                                                             
+  end                                                                                                                                                                                                                    
+end
+
+class RunBrowserCommand
+  def run_using(item)
+    system("open \"#{item.url}\"")
+  end
+end
+
+
+class UrlItem
+  attr_reader :url
+  def initialize(desc, url)
+    @desc = desc
+    @url = url
+  end
+  def to_s
+    @desc
+  end
+end
+
+# map "<Cmd- >", launch_app
+
+map "<Cmd- >" do                                                                                                                                                                                                         
+  trigger_item_with(Commands.items,RunRegisteredCommand.new)                                                                                                                                                             
+end 
+
+# bookmarks = [UrlItem.new('Google', 'http://www.google.com')]
+# 
+# command "Bookmarks" do 
+#   trigger_item_with(bookmarks, RunBrowserCommand.new)
+# end
+
+map "<Cmd-.>",RunLastCommand.instance

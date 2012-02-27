@@ -34,6 +34,7 @@ set vb                          " Use visual bell instead of audible bell
 set hidden                      " Hide buffers when not displayed
 set t_Co=256                    " Enable 256 color
 set noswapfile                  " It's 2012, Vim.
+set ttimeoutlen=100             " Timeout for key mappings
 
 set foldmethod=syntax           "fold based on syntax
 set foldnestmax=3               "deepest fold is 3 levels
@@ -117,7 +118,7 @@ Bundle 'tpope/vim-cucumber'
 Bundle 'tpope/vim-repeat'
 Bundle 'msanders/cocoa.vim'
 Bundle 'scrooloose/nerdtree'
-" Bundle 'scrooloose/syntastic'
+Bundle 'scrooloose/syntastic'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'kien/ctrlp.vim'
 Bundle 'esukram/taglist.vim'
@@ -126,7 +127,7 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'mattn/gist-vim'
 Bundle 'xenoterracide/css.vim'
 Bundle 'mileszs/ack.vim'
-Bundle 'ujihisa/camelcasemotion'
+" Bundle 'ujihisa/camelcasemotion'
 Bundle 'Raimondi/delimitMate'
 Bundle 'edsono/vim-matchit'
 Bundle 'vim-scripts/AutoTag'
@@ -227,13 +228,12 @@ imap <leader>p puts "
 map <leader># i#{
 imap <leader># #{
 
-inoremap jk <esc>
-inoremap <esc> <nop>
-inoremap <c-[> <nop>
-
+" CtrlP
+map <leader>b :CtrlPBuffer<cr>
 
 " - Abbreviations ---------------------------------------------------- "
 cnoreabbrev ack Ack
+
 
 " - Auto Commands ---------------------------------------------------- "
 
@@ -284,6 +284,8 @@ endfunction
 function! CorrectTestRunner()
   if match(expand("%"), "\.feature$") != -1
     return "cucumber"
+  elseif match(expand("%:p"), "dms") != -1
+    return "spec -c"
   elseif match(expand("%"), "keymando.*unit.*_spec\.rb$") != -1
     return "keymando/spec/unit/vim_rspec -c"
   elseif match(expand("%"), "keymando.*integration.*_spec\.rb$") != -1

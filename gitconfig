@@ -6,7 +6,7 @@
   ci = commit
   dc = diff --cached
   aa = add --all
-  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %C(yellow) %an %Creset' --abbrev-commit --date=relative
 [color]
   diff = auto
   status = auto
