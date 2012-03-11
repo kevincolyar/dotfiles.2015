@@ -129,106 +129,6 @@ end
 #   # alert(input())
 # end
 
-#general_mnemonic_mappings
-#----------------------------------------------------------------
-map "<Cmd-y>" do 
-  input(
-    # This works and will be handy for nested mappings
-    # "w" => lambda{
-    #   input(
-    #     "h" => lambda{send("<Ctre-5>")}, #send window top left
-    #    )},
-    #-----------------------------------------------------------
-    #window_management
-    #-----------------------------------------------------------
-    "th" => send_keys("<Ctrl-1>"), #window_top_left
-    "tl" => send_keys("<Ctrl-2>"), #window_top_right
-    "bh" => send_keys("<Ctrl-3>"), #window_bottom_left
-    "bl" => send_keys("<Ctrl-4>"), #window_bottom_right
-    "h" => send_keys("<Ctrl-5>"), #window_left
-    "j" => send_keys("<Ctrl-8>"), #window_top
-    "k" => send_keys("<Ctrl-7>"), #window_bottom
-    "l" => send_keys("<Ctrl-6>"), #window_right
-    "f" => send_keys("<Ctrl-9>"), #window_full_screen
-    "c" => send_keys("<Ctrl-0>"), #window_center
-    #end_window_management---------------------------------------
-
-    #-----------------------------------------------------------
-    #general
-    #-----------------------------------------------------------
-    # "rel" => reload_configuration,
-    "ls" => lock_the_screen,
-    "mi" => send_keys("<Cmd-Shift-U>"), #trigger_quicksilver_menu_items
-    "x" => send_keys("<Cmd-q>"), #quit current application
-    "screen" => send_keys("<Cmd-Shift-3>"),
-    "qs" => send_keys("<Cmd- >"),
-    "s" => lambda{say(prompt("Say Something"))},
-    "spp" => send_keys("kevinc<Tab>#{Passwords[:sharepoint]}<Return>"),
-    "p" => send_keys(Passwords[:main]),
-    "rc" => lambda {
-      activate("Google Chrome")
-      sleep(1)
-      send("<Cmd-r>")
-      sleep(1)
-      activate("iTerm")
-    },
-    "goo" => lambda {
-      activate("Google Chrome")
-      send("<Cmd-t>")
-      send("<Cmd-l>")
-    },
-
-    "milk" => lambda {
-       system("open https://www.rememberthemilk.com/home/kevin.colyar/")
-    },
-
-    "tma" => lambda {
-      [
-        'https://mail.google.com/mail/?shva=1#mbox', 
-        'https://www.rememberthemilk.com/home/kevin.colyar/',
-        'https://www.google.com/calendar/render?pli=1'
-      ].each { |url| system("open #{url}") } 
-    },
-
-   "qt" => lambda{
-        track = prompt("Enter track")
-        send("<Cmd- >") 
-        send("Browse Tracks")
-        sleep(1)
-        send("<Right>")
-        sleep(1)
-        send(track+'<Enter>')
-    },
-    "ba" => lambda {
-        send("<Cmd- >") 
-        send("Browse Artists")
-        sleep(1)
-        send("<Right>")
-    },
-    "bt" => lambda {
-        send("<Cmd- >") 
-        send("Browse Tracks")
-        sleep(1)
-        send("<Right>")
-    },
-    "g" => lambda{
-      system("open http://google.com/search?q=\"#{prompt('Google')}\"")
-    },
-    "etm" => lambda {
-      system('diskutil umount "/Volumes/Time Machine Backups"')
-    },
-    "sn" => lambda { Spotify.next },
-    "sp" => lambda { Spotify.play_pause },
-    "ct" => lambda { Spotify.current_track }
-
-    #end_general------------------------------------------------
-    )
-
-end
-
-#end_general_mnemonic_mappings----------------------------------
-
-
 #imap "<Cmd-t>" do
 #  alert('Input Mode Only')
 #end
@@ -286,6 +186,7 @@ abbrev 'eemail', 'kevin@colyar.net'
 
 abbrev 'addr', '1123 Fuller St., Wenatchee, WA, 98801'
 abbrev 'teh', 'the'
+abbrev 'shoudl', 'should'
 
 map '<cmd-down>' { alert(Keymando.version)}
 
@@ -340,8 +241,17 @@ Commands.register LeftClick.instance,
   UiControls.instance
 
 
-command 'Reload' { alert('Reloaded Successfully') if reload }
+command 'Keymando - Reload' { alert('Reloaded Successfully') if reload }
 
+ApplicationLauncher.register('/System/Library/CoreServices', :max_depth => 1)
+ApplicationLauncher.register('/Applications', :max_depth => 2)
+ApplicationLauncher.register('/Developer/Applications', :max_depth => 3)
+
+# ChromeBookmarks.register('/Users/kevinc/Library/Application Support/Google/Chrome/Default/Bookmarks')
+
+# map "<Cmd-d>", current_app_windows
+# map "<Cmd-f>", trigger_app
+ 
 command 'Eject Time Machine', :remember => true do
   system('diskutil umount "/Volumes/Time Machine Backups"')
 end
@@ -351,14 +261,23 @@ command "Chrome - Refresh" do
   send("<Cmd-r>")
 end
 
-ApplicationLauncher.register('/Applications', :max_depth => 2)
-ApplicationLauncher.register('/Developer/Applications', :max_depth => 3)
+command "Keymando - Edit Config" do
+  system('open /home/kevinc/.keymandorc.rb')
+end
 
-ChromeBookmarks.register('/Users/kevinc/Library/Application Support/Google/Chrome/Default/Bookmarks')
+command "Open Dropbox" do 
+  open('/home/kevinc/.keymandorc.rb')
+end
 
-# map "<Cmd-d>", current_app_windows
-# map "<Cmd-f>", trigger_app
- 
+command "Finder - Underscorify" do
+  send('<Return><Cmd-c>')
+  IO.popen('pbpaste') { |clipboard| p = clipboard.read }
+  return if p.nil?
+  s = p.downcase.gsub(/[ -]/, '_')
+  IO.popen('pbcopy', "w").tap{|io| io.write s}.close
+  send('<Cmd-v><Return>')
+end
+
 map "<Cmd-h>", UiControls.instance
 
 class RunRegisteredCommand                                                                                                                                                                                               
