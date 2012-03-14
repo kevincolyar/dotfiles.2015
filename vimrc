@@ -61,6 +61,9 @@ set softtabstop=2
 set expandtab
 set autoindent
 
+" Use a line-drawing char for pretty vertical splits.
+set fillchars+=vert:│
+
 "vertical/horizontal scroll off settings
 set scrolloff=3
 set sidescrolloff=7
@@ -71,7 +74,7 @@ set previewheight=25
 
 " GUI Settings
 if has('gui_running')
-    set guifont=Menlo\ Regular\ for\ Powerline:h13
+    set guifont=Menlo\ Regular\ for\ Powerline:h14
 
     " Remove all the UI cruft
     set go-=T
@@ -82,22 +85,23 @@ if has('gui_running')
 
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 
-    " Use a line-drawing char for pretty vertical splits.
-    set fillchars+=vert:│
-
     " Different cursors for different modes.
     set guicursor=n-c:block-Cursor-blinkon0
     set guicursor+=v:block-vCursor-blinkon0
     set guicursor+=i-ci:ver20-iCursor
 
     if has("gui_macvim")
-        " Full screen means FULL screen
-        set fuoptions=maxvert,maxhorz
+      " Full screen means FULL screen
+      set fuoptions=maxvert,maxhorz
     else
-        " Non-MacVim GUI, like Gvim
+      " Non-MacVim GUI, like Gvim
     end
 else
     " Console Vim
+     
+    "Just use underlines and red foreground to mark misspellings in console
+    highlight clear SpellBad
+    highlight SpellBad cterm=underline ctermfg=red 
 endif
 
 
@@ -159,7 +163,7 @@ let g:Powerline_symbols='fancy'
 " let g:syntastic_enable_signs=1
 
 " CtrlP
-let g:ctrlp_map = '<Leader>t'
+let g:ctrlp_map = '<leader>t'
 let g:ctrlp_max_height = 20
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_max_depth = 20
@@ -184,20 +188,30 @@ let g:dbext_default_profile = 'myconnection'
 
 " - Maps ----------------------------------------------------------------- "
 
+" Make Y behave like other capitals
+map Y y$
+
+" <leader>/ toggles hlearch
+map <silent><leader>/ :se invhlsearch<CR> 
+
+map <silent><leader>q :q<CR>
+map <silent><leader>s :split<CR>
+map <silent><leader>vs :vsplist<CR>
+
 " Fix regexes
 nnoremap / /\v
 vnoremap / /\v
 
 " Replace all instance of word under cursor
-nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
+nnoremap <leader>s :%s/\<<C-r><C-w>\>/
 
 " Ack with the word under cursor
-nnoremap <Leader>a :Ack <C-r><C-w>
+nnoremap <leader>a :Ack <C-r><C-w>
 
 " Git maps
-map <Leader>gs :Gstatus<CR>
-map <Leader>gc :Gcommit<CR>
-map <Leader>gd :Gdiff<CR>
+map <leader>gs :Gstatus<CR>
+map <leader>gc :Gcommit<CR>
+map <leader>gd :Gdiff<CR>
 
 " Navigating Splits
 nnoremap <C-h> <C-w>h
@@ -230,6 +244,7 @@ imap <leader># #{
 
 " CtrlP
 map <leader>b :CtrlPBuffer<cr>
+
 
 " - Abbreviations ---------------------------------------------------- "
 cnoreabbrev ack Ack
@@ -270,6 +285,9 @@ autocmd BufNewFile,BufRead *.m set filetype=objc
 " Rspec/Cucumber
 autocmd BufNewFile,BufRead *.feature,*_spec.rb map <leader>e :call RunCurrentLineTestTest()<cr>
 autocmd BufNewFile,BufRead *.feature,*_spec.rb map <leader>f :call RunCurrentTest()<cr>
+
+" eRuby Javascript
+autocmd BufNewFile,BufRead *.js.erb set filetype=javascript
 
 " - Functions ------------------------------------------------------- "
 
