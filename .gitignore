@@ -3,3 +3,5 @@ git.yml
 zsh/history
 vim/bundle
 vim/.netrwhist
+*weechatlog
+*.log
