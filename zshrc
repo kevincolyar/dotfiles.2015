@@ -11,4 +11,9 @@ if [ `uname` = "Darwin" ]; then
 elif [ `uname` = "Linux" ]; then
   . ~/.zsh/linux/aliases
   . ~/.zsh/linux/paths
+
+  # When on a linux box, change to 256 colors
+  if [ "$TERM" = "screen" ]; then
+    export TERM=xterm-256color
+  fi
 fi
