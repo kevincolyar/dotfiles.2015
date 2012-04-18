@@ -14,6 +14,6 @@ elif [ `uname` = "Linux" ]; then
 
   # When on a linux box, change to 256 colors
   if [ "$TERM" = "screen" ]; then
-    export TERM=xterm-256color
+    export TERM=screen-256color
   fi
 fi
