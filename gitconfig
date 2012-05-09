@@ -7,6 +7,7 @@
   dc = diff --cached
   aa = add --all
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %C(yellow) %an %Creset' --abbrev-commit --date=relative
+  vimdiff = difftool -y -t vimdiff
 [color]
   diff = auto
   status = auto
@@ -18,10 +19,10 @@
   whitespace = nowarn
 [init]
   templatedir = ~/.git_template
-[diff]
-  external = ~/bin/git-diff-driver.sh
-[pager]
-  diff =
+; [diff]
+;   external = ~/bin/git-diff-driver.sh
+; [pager]
+;   diff =
 [mergetool "diffmerge"]
   cmd = diffmerge --merge --result=$MERGED $LOCAL $BASE $REMOTE
   trustExitCode = false
