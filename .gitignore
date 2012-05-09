@@ -5,3 +5,4 @@ vim/bundle
 vim/.netrwhist
 *weechatlog
 *.log
+__*
