@@ -1,5 +1,6 @@
-autoload -U compinit
-# compinit # This slows startup way down
+# These two lines slow startup way down because they're called in ohmyzsh
+#autoload -U compinit
+#compinit
 
 # matches case insensitive for lowercase
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'

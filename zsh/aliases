@@ -5,7 +5,7 @@ alias ..='cd ..'
 alias ls="ls -FGh"
 alias l="ls -lAhG"
 alias ll="ls -lGh"
-alias la='ls -AGh'
+alias la='ls -lAGh'
 
 # ls
 alias less="less -R"
