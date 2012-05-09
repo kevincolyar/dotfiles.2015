@@ -24,7 +24,7 @@ set nowrap      		" Dont wrap lines
 set linebreak   		" Wrap lines at convenient points
 
 set ignorecase  		" Ignore case in searches
-set nohlsearch  	  	" Turn off highlighting when done searching
+" set nohlsearch  	  	" Turn off highlighting when done searching
 
 set tags=./tags 		" Ctags
 set complete=.,t,b		" Use ctags and current buffer for completion
@@ -71,6 +71,14 @@ set sidescroll=1
 
 " Set the preview window height.  Used by fugitve plugin
 set previewheight=25
+
+
+" Persistent undo
+if has('persistent_undo')
+  set undodir=$HOME/tmp/.VIM_UNDO_FILES
+  set undolevels=5000
+  set undofile
+endif
 
 " GUI Settings
 if has('gui_running')
@@ -141,6 +149,9 @@ Bundle 'derekwyatt/vim-fswitch'
 Bundle 'godlygeek/tabular'
 Bundle 'gregsexton/MatchTag'
 Bundle 'https://github.com/vim-scripts/dbext.vim.git'
+Bundle 'ecomba/vim-ruby-refactoring'
+Bundle 'benmills/vimux.git'
+" Bundle "sjl/vitality.vim"  " Still need a fix for, mangles buffer on 'r' and 'gcc' commands
 
 " Snipmate
 Bundle "MarcWeber/vim-addon-mw-utils"
@@ -228,9 +239,6 @@ nmap <silent> <leader>o :NERDTreeToggle<CR>
 " bind control-l to hashrocket
 imap <C-l> <Space>=><Space>
 
-" Make Y consistent with C and D
-nnoremap Y y$
-
 " Ack
 nnoremap <c-a> :Ack 
 
@@ -245,10 +253,32 @@ imap <leader># #{
 " CtrlP
 map <leader>b :CtrlPBuffer<cr>
 
+" Rename current file (see Functions section)
+map <leader>n :call RenameFile()<cr>
+
+" Vimux
+ 
+" Run the current file with rspec
+map <leader>rb :call RunVimTmuxCommand("clear; rspec " . bufname("%"))<CR>
+
+" Prompt for a command to run
+map <leader>rp :PromptVimTmuxCommand<CR>
+
+" Run last command executed by RunVimTmuxCommand
+map <leader>rl :RunLastVimTmuxCommand<CR>
+
+" Inspect runner pane
+map <leader>ri :InspectVimTmuxRunner<CR>
+
+" Close all other tmux panes in current window
+map <leader>rx :CloseVimTmuxPanes<CR>
+
+" Interrupt any command running in the runner pane
+map <leader>rs :InterruptVimTmuxRunner<CR>
+
 
 " - Abbreviations ---------------------------------------------------- "
 cnoreabbrev ack Ack
-
 
 " - Auto Commands ---------------------------------------------------- "
 
@@ -289,6 +319,11 @@ autocmd BufNewFile,BufRead *.feature,*_spec.rb map <leader>f :call RunCurrentTes
 " eRuby Javascript
 autocmd BufNewFile,BufRead *.js.erb set filetype=javascript
 
+" Idea files
+autocmd BufNewFile,BufRead *.idea set filetype=markdown
+autocmd BufNewFile,BufRead *.idea nmap <leader>done r✓ 
+autocmd BufNewFile,BufRead *.idea nmap <leader>new o☐ 
+
 " - Functions ------------------------------------------------------- "
 
 function! RunCurrentTest()
@@ -313,4 +348,12 @@ function! CorrectTestRunner()
   endif
 endfunction
 
-
+function! RenameFile()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'), 'file')
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
+endfunction
