@@ -49,3 +49,5 @@ function pless() {
 }
 
 alias vi='vim'
+
+alias truecrypt='/Applications/TrueCrypt.app/Contents/MacOS/Truecrypt --text'
