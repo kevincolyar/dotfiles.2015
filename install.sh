@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 function link_file
 {
@@ -8,7 +8,7 @@ function link_file
 
 function replace_file
 {
-  rm "$HOME/.$1"
+  rm -rfv "$HOME/.$1"
   link_file $1
 }
 
@@ -16,7 +16,7 @@ function link_dotfiles
 {
   replace_all=false
 
-  for file in $1
+  for file in $*
   do
     if [ -e "$HOME/.$file" ]
     then
