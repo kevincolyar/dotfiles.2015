@@ -3,6 +3,7 @@ git.yml
 zsh/history
 vim/bundle
 vim/.netrwhist
+vim/backups
 *weechatlog
 *.log
 __*
