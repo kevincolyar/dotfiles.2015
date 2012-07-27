@@ -355,11 +355,22 @@ au Syntax * RainbowParenthesesLoadBraces
 " - Functions ------------------------------------------------------- "
 
 function! RunCurrentTest()
-  execute "!" . CorrectTestRunner() " --drb" expand('%:p')
+  execute CorrectCommandExecutor() . CorrectTestRunner() " --drb" expand('%:p') . "\")"
 endfunction
 
 function! RunCurrentLineTestTest()
-  execute "!" . CorrectTestRunner() " --drb" expand('%:p') . ":" . line(".")
+  execute CorrectCommandExecutor() . CorrectTestRunner() " --drb" expand('%:p') . ":" . line(".") . "\")"
+endfunction
+
+function! RunNormalCommand(cmd)
+  return "! " . cmd
+endfunction
+
+function! CorrectCommandExecutor()
+  if &term == "screen"
+    return "call RunVimTmuxCommand(\" "
+  endif
+  return "RunNormalCommand(\" "
 endfunction
 
 function! CorrectTestRunner()
