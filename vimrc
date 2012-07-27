@@ -128,6 +128,8 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-rails'
+" For :A (and other stuff) in plain ol ruby projects
+Bundle 'tpope/vim-rake'                           
 Bundle 'tpope/vim-git'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-surround'
@@ -347,8 +349,6 @@ autocmd BufNewFile,BufRead *.idea nmap <leader>new o☐
 " Rainbow Parentheses
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
-" For :A (and other stuff) in plain ol ruby projects
-Bundle 'tpope/vim-rake'                           
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
