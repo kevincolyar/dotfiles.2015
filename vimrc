@@ -347,6 +347,8 @@ autocmd BufNewFile,BufRead *.idea nmap <leader>new o☐
 " Rainbow Parentheses
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
+" For :A (and other stuff) in plain ol ruby projects
+Bundle 'tpope/vim-rake'                           
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
