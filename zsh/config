@@ -59,5 +59,6 @@ setopt share_history # share history between sessions ???
 # See http://www.contextualdevelopment.com/articles/2006/zsh_history_searching
 for keymap in v a; do
   bindkey -$keymap ^n  history-incremental-search-backward
+  bindkey -$keymap ^p  history-incremental-search-forward
 done
 

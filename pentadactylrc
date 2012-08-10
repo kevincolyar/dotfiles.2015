@@ -1,0 +1,23 @@
+"1.0rc1
+
+loadplugins '\.(js|penta)$'
+group user
+
+" vim: set ft=pentadactyl:
+
+set guioptions+=rbmsT
+set mapleader=,
+set hintkeys=asdfjkl
+
+
+" Gmail
+" set passkeys+='https://mail\.google\.com':xsem!#rRaAvN[]{}z.IU=-gidac/?lujkonp
+
+" Google Calendar
+" set passkeys+="https://www\.google\.com/calendar":jkg12345qrcnp
+
+" Remember the Milk
+"set passkeys+="https://www\.rememberthemilk\.com/home/kevincolyar*":jkcr
+
+autocmd LocationChange google.com :normal! <C-z>
+autocmd LocationChange rememberthemilk.com :normal! <C-z>
