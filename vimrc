@@ -154,7 +154,6 @@ Bundle 'edsono/vim-matchit'
 Bundle 'vim-scripts/AutoTag'
 Bundle 'vim-scripts/IndexedSearch'
 Bundle 'vim-scripts/tComment'
-Bundle "vim-scripts/VimClojure"
 Bundle 'derekwyatt/vim-fswitch'
 Bundle 'godlygeek/tabular'
 Bundle 'gregsexton/MatchTag'
@@ -163,7 +162,11 @@ Bundle 'ecomba/vim-ruby-refactoring'
 Bundle 'benmills/vimux.git'
 " Bundle "sjl/vitality.vim"  " Still need a fix for, mangles buffer on 'r' and 'gcc' commands
 Bundle "mattn/zencoding-vim"
+
+" Clojure
+" Bundle "vim-scripts/VimClojure"
 Bundle "kien/rainbow_parentheses.vim"
+Bundle "vim-scripts/slimv.vim"
 
 " Snipmate
 Bundle "MarcWeber/vim-addon-mw-utils"
@@ -184,6 +187,10 @@ let g:Powerline_symbols='fancy'
 
 " Syntastic
 let g:syntastic_enable_signs=1
+
+" Slimv
+let g:slimv_leader = '\'
+let g:paredit_mode = 0
 
 " CtrlP
 let g:ctrlp_map = '<leader>t'
@@ -340,6 +347,9 @@ autocmd BufNewFile,BufRead *.feature,*_spec.rb map <leader>f :call RunCurrentTes
 
 " eRuby Javascript
 autocmd BufNewFile,BufRead *.js.erb set filetype=javascript
+
+" Markdown
+autocmd BufNewFile,BufRead *.md set filetype=markdown
 
 " Idea files
 autocmd BufNewFile,BufRead *.idea set filetype=markdown
