@@ -87,16 +87,16 @@ if has('persistent_undo')
   set undolevels=1000
 endif
 
+" Trailing whitespace
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+
 " GUI Settings
 if has('gui_running')
     set guifont=Menlo\ Regular\ for\ Powerline:h14
 
     " Remove all the UI cruft
-    set go-=T
-    set go-=l
-    set go-=L
-    set go-=r
-    set go-=R
+    set go-=TlLrR
 
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 
@@ -113,15 +113,15 @@ if has('gui_running')
     end
 else
     " Console Vim
-     
+
     "Just use underlines and red foreground to mark misspellings in console
     highlight clear SpellBad
-    highlight SpellBad cterm=underline ctermfg=red 
+    highlight SpellBad cterm=underline ctermfg=red
 endif
 
 
 " - Vundle ---------------------------------------------------------- "
- 
+
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -129,7 +129,7 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-rails'
 " For :A (and other stuff) in plain ol ruby projects
-Bundle 'tpope/vim-rake'                           
+Bundle 'tpope/vim-rake'
 Bundle 'tpope/vim-git'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-surround'
@@ -164,9 +164,13 @@ Bundle 'benmills/vimux.git'
 Bundle "mattn/zencoding-vim"
 
 " Clojure
-" Bundle "vim-scripts/VimClojure"
+Bundle "vim-scripts/VimClojure"
 Bundle "kien/rainbow_parentheses.vim"
-Bundle "vim-scripts/slimv.vim"
+
+" Turn off delimateMate (which provides auto-closing parens) for Clojure files
+" as they just get in the way
+au! FileType clojure let b:loaded_delimitMate=1
+
 
 " Snipmate
 Bundle "MarcWeber/vim-addon-mw-utils"
@@ -179,6 +183,7 @@ filetype plugin indent on      " Load ftplugins and indent files
 " - Variables ------------------------------------------------------------- "
  
 let mapleader = ","
+let maplocalleader = ","
 
 let localvimrc_sandbox=0
 let localvimrc_ask=0
@@ -216,13 +221,22 @@ endif
 let g:dbext_default_profile_myconnection='type=ODBC:user=:passwd=:dsnname=:dbname='
 let g:dbext_default_profile = 'myconnection'
 
+" VimClojure
+let vimclojure#FuzzyIndent=1
+let vimclojure#HighlightBuiltins=1
+let vimclojure#HighlightContrib=1
+let vimclojure#DynamicHighlighting=1
+let vimclojure#ParenRainbow=0
+let vimclojure#WantNailgun=1
+let vimclojure#NailgunClient = $HOME . "/bin/ng"
+
 " - Maps ----------------------------------------------------------------- "
 
 " Make Y behave like other capitals
 map Y y$
 
 " <leader>/ toggles hlearch
-map <silent><leader>/ :se invhlsearch<CR> 
+map <silent><leader>/ :se invhlsearch<CR>
 
 map <silent><leader>q :q<CR>
 map <silent><leader>s :split<CR>
@@ -265,10 +279,10 @@ nnoremap <c-a> :Ack
 " Auto-completion for command line mode
 cmap <C-n> <Up>
 
-nmap <leader>p iputs "
-imap <leader>p puts "
-map <leader># i#{
-imap <leader># #{
+au! FileType ruby nmap <leader>p iputs "
+au! FileType ruby imap <leader>p puts "
+au! FileType ruby map <leader># i#{
+au! FileType ruby imap <leader># #{
 
 " CtrlP
 map <leader>b :CtrlPBuffer<cr>
@@ -353,8 +367,8 @@ autocmd BufNewFile,BufRead *.md set filetype=markdown
 
 " Idea files
 autocmd BufNewFile,BufRead *.idea set filetype=markdown
-autocmd BufNewFile,BufRead *.idea nmap <leader>done r✓ 
-autocmd BufNewFile,BufRead *.idea nmap <leader>new o☐ 
+autocmd BufNewFile,BufRead *.idea nmap <leader>done r✓
+autocmd BufNewFile,BufRead *.idea nmap <leader>new o☐
 
 " Rainbow Parentheses
 au VimEnter * RainbowParenthesesToggle
