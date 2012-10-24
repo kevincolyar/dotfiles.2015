@@ -4,7 +4,7 @@
 #export FREETDSCONF=/opt/local/etc/freetds.conf
 
 # Oracle
-export ORACLE_HOME=/Library/Oracle/instantclient/10.2.0.4
+export ORACLE_HOME=~/Library/Oracle/instantclient/10.2.0.4
 export TNS_ADMIN=$ORACLE_HOME
 export LD_LIBRARY_PATH=$ORACLE_HOME
 export DYLD_LIBRARY_PATH=$ORACLE_HOME
@@ -14,5 +14,6 @@ export PATH=$PATH:$ORACLE_HOME
 export JAVA_HOME="/Library/Java/Home"
 
 # Vim
-export EDITOR="/Applications/MacVim.app/Contents/MacOS/Vim"
-export GIT_EDITOR="/Applications/MacVim.app/Contents/MacOS/Vim"
+export EDITOR="vim"
+export GIT_EDITOR="vim"
+

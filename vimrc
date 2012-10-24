@@ -167,6 +167,8 @@ Bundle "mattn/zencoding-vim"
 Bundle "vim-scripts/VimClojure"
 Bundle "kien/rainbow_parentheses.vim"
 
+Bundle "Shougo/neocomplcache"
+
 " Turn off delimateMate (which provides auto-closing parens) for Clojure files
 " as they just get in the way
 au! FileType clojure let b:loaded_delimitMate=1
@@ -214,7 +216,7 @@ let g:gist_open_browser_after_post = 1
 
 " Ctags
 if has("macunix")
-  let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"
+  let Tlist_Ctags_Cmd = "ctags"
 endif
 
 " dbext

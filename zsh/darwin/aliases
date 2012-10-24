@@ -1,3 +1,1 @@
-alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
-alias vimdiff="/Applications/MacVim.app/Contents/MacOS/Vim -d"
 alias gitx="/Applications/GitX.app/Contents/MacOS/GitX"
