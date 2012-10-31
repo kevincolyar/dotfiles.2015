@@ -62,3 +62,5 @@ for keymap in v a; do
   bindkey -$keymap "^p" history-incremental-search-forward
 done
 
+# Turn off flow control to let <Ctrl-s> passthrough to vim
+stty -ixon
