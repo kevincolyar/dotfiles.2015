@@ -184,9 +184,9 @@ filetype plugin indent on      " Load ftplugins and indent files
 
 " - Variables ------------------------------------------------------------- "
  
-let mapleader = ","
-let maplocalleader = ","
-
+let mapleader = ";"
+let maplocalleader = ";"
+; 
 let localvimrc_sandbox=0
 let localvimrc_ask=0
 
@@ -243,14 +243,15 @@ map <silent><leader>/ :se invhlsearch<CR>
 map <silent><leader>q :q<CR>
 map <silent><leader>s :split<CR>
 map <silent><leader>vs :vsplist<CR>
-map <C-s> :w<cr>
+nnoremap <silent> <C-S> :if expand("%") == ""<CR>browse confirm w<CR>else<CR>confirm w<CR>endif<CR>
+imap <c-s> <esc><c-s>a
 
 " Fix regexes
 nnoremap / /\v
 vnoremap / /\v
 
 " Replace all instance of word under cursor
-nnoremap <leader>s :%s/\<<C-r><C-w>\>/
+" nnoremap <leader>s :%s/\<<C-r><C-w>\>/
 
 " Ack with the word under cursor
 nnoremap <leader>a :Ack <C-r><C-w>
@@ -276,15 +277,10 @@ nmap <silent> <leader>o :NERDTreeToggle<CR>
 imap <C-l> <Space>=><Space>
 
 " Ack
-nnoremap <c-a> :Ack 
+nnoremap <c-a> :Ack
 
 " Auto-completion for command line mode
 cmap <C-n> <Up>
-
-au! FileType ruby nmap <leader>p iputs "
-au! FileType ruby imap <leader>p puts "
-au! FileType ruby map <leader># i#{
-au! FileType ruby imap <leader># #{
 
 " CtrlP
 map <leader>b :CtrlPBuffer<cr>
@@ -293,7 +289,7 @@ map <leader>b :CtrlPBuffer<cr>
 map <leader>n :call RenameFile()<cr>
 
 " Vimux
- 
+
 " Run the current file with rspec
 map <leader>rb :call RunVimTmuxCommand("clear; rspec " . bufname("%"))<CR>
 
@@ -320,6 +316,12 @@ cnoreabbrev ack Ack
 
 " - Auto Commands ---------------------------------------------------- "
 autocmd FileType text setlocal textwidth=78
+
+" Ruby
+au! FileType ruby nmap <leader>p iputs "
+au! FileType ruby imap <leader>p puts "
+au! FileType ruby map <leader># i#{
+au! FileType ruby imap <leader># #{
 
 " Spell checking, wrapping, and autocomplete for text files
 autocmd BufNewFile,BufRead *.txt set wrap
