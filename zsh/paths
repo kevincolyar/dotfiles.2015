@@ -4,12 +4,6 @@ export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/
 # Man
 export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
 
-# git
-export PATH="/usr/local/git/bin:$PATH"
-
-# Opt
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH" 
-
 # Home bin
 export PATH="$HOME/bin/:$HOME/bin/ssh:$HOME/bin/rsync:$PATH"
 

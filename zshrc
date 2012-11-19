@@ -15,5 +15,6 @@ elif [ `uname` = "Linux" ]; then
   # When on a remote linux box, change to 256 colors
   if [ "$TERM" = "screen" ]; then
     export TERM=screen-256color
+    export SSH_AUTH_SOCK=$HOME/.ssh/ssh_auth_sock
   fi
 fi

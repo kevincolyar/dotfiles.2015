@@ -26,8 +26,10 @@ set linebreak   		" Wrap lines at convenient points
 set ignorecase  		" Ignore case in searches
 " set nohlsearch  	  	" Turn off highlighting when done searching
 
+set complete=.,b,u,t            " Omnicomplete
+set completeopt=menu,preview
+
 set tags=./tags 		" Ctags
-set complete=.,t,b		" Use ctags and current buffer for completion
 set grepprg=ack			" Using ack instead of grep
 
 set vb                          " Use visual bell instead of audible bell
@@ -40,7 +42,7 @@ set foldmethod=syntax           "fold based on syntax
 set foldnestmax=3               "deepest fold is 3 levels
 set nofoldenable                "dont fold by default
 
-set wildmode=list:longest       "make cmdline tab completion similar to bash
+set wildmode=longest,list:longest       "make cmdline tab completion similar to bash
 set wildmenu                    "enable ctrl-n and ctrl-p to scroll thru matches
 set wildignore=*.o,*.obj,*~     "stuff to ignore when tab completing
 set wildignore+=vendor/rails/**
@@ -52,8 +54,10 @@ set nolist                      " Off by default
 set formatoptions-=o            " Dont continue comments when pushing o/O
 
 " Setup back directory, where all .sw* files are kept
-set backupdir=/var/tmp/
-set directory=/var/tmp/
+" set backupdir=/var/tmp/
+" set directory=/var/tmp/
+set nobackup
+set nowb
 
 "indent settings
 set shiftwidth=2
@@ -72,24 +76,27 @@ set sidescroll=1
 " Set the preview window height.  Used by fugitve plugin
 set previewheight=25
 
+set winwidth=79
 
 " Persistent undo
 if has('persistent_undo')
-  set undodir=$HOME/tmp/.VIM_UNDO_FILES
-  set undolevels=5000
+  silent !mkdir ~/.vim/backups > /dev/null 2>&1
+  set undodir=~/.vim/backups
   set undofile
+  set undolevels=1000
+  set undolevels=1000
 endif
+
+" Trailing whitespace
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
 
 " GUI Settings
 if has('gui_running')
     set guifont=Menlo\ Regular\ for\ Powerline:h14
 
     " Remove all the UI cruft
-    set go-=T
-    set go-=l
-    set go-=L
-    set go-=r
-    set go-=R
+    set go-=TlLrR
 
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 
@@ -106,21 +113,23 @@ if has('gui_running')
     end
 else
     " Console Vim
-     
+
     "Just use underlines and red foreground to mark misspellings in console
     highlight clear SpellBad
-    highlight SpellBad cterm=underline ctermfg=red 
+    highlight SpellBad cterm=underline ctermfg=red
 endif
 
 
 " - Vundle ---------------------------------------------------------- "
- 
+
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-rails'
+" For :A (and other stuff) in plain ol ruby projects
+Bundle 'tpope/vim-rake'
 Bundle 'tpope/vim-git'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-surround'
@@ -148,30 +157,47 @@ Bundle 'vim-scripts/tComment'
 Bundle 'derekwyatt/vim-fswitch'
 Bundle 'godlygeek/tabular'
 Bundle 'gregsexton/MatchTag'
-Bundle 'https://github.com/vim-scripts/dbext.vim.git'
+" Bundle 'https://github.com/vim-scripts/dbext.vim.git'
 Bundle 'ecomba/vim-ruby-refactoring'
 Bundle 'benmills/vimux.git'
 " Bundle "sjl/vitality.vim"  " Still need a fix for, mangles buffer on 'r' and 'gcc' commands
+Bundle "mattn/zencoding-vim"
+
+" Clojure
+Bundle "vim-scripts/VimClojure"
+Bundle "kien/rainbow_parentheses.vim"
+
+Bundle "Shougo/neocomplcache"
+
+" Turn off delimateMate (which provides auto-closing parens) for Clojure files
+" as they just get in the way
+au! FileType clojure let b:loaded_delimitMate=1
+
 
 " Snipmate
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
-Bundle "juracy/snipmate-snippets"
+Bundle "honza/snipmate-snippets"
 Bundle "garbas/vim-snipmate"
 
 filetype plugin indent on      " Load ftplugins and indent files
 
 " - Variables ------------------------------------------------------------- "
  
-let mapleader = ","
-
+let mapleader = ";"
+let maplocalleader = ";"
+; 
 let localvimrc_sandbox=0
 let localvimrc_ask=0
 
 let g:Powerline_symbols='fancy'
 
 " Syntastic
-" let g:syntastic_enable_signs=1
+let g:syntastic_enable_signs=1
+
+" Slimv
+let g:slimv_leader = '\'
+let g:paredit_mode = 0
 
 " CtrlP
 let g:ctrlp_map = '<leader>t'
@@ -190,12 +216,21 @@ let g:gist_open_browser_after_post = 1
 
 " Ctags
 if has("macunix")
-  let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"
+  let Tlist_Ctags_Cmd = "ctags"
 endif
 
 " dbext
 let g:dbext_default_profile_myconnection='type=ODBC:user=:passwd=:dsnname=:dbname='
 let g:dbext_default_profile = 'myconnection'
+
+" VimClojure
+let vimclojure#FuzzyIndent=1
+let vimclojure#HighlightBuiltins=1
+let vimclojure#HighlightContrib=1
+let vimclojure#DynamicHighlighting=1
+let vimclojure#ParenRainbow=0
+let vimclojure#WantNailgun=1
+let vimclojure#NailgunClient = $HOME . "/bin/ng"
 
 " - Maps ----------------------------------------------------------------- "
 
@@ -203,18 +238,20 @@ let g:dbext_default_profile = 'myconnection'
 map Y y$
 
 " <leader>/ toggles hlearch
-map <silent><leader>/ :se invhlsearch<CR> 
+map <silent><leader>/ :se invhlsearch<CR>
 
 map <silent><leader>q :q<CR>
 map <silent><leader>s :split<CR>
 map <silent><leader>vs :vsplist<CR>
+nnoremap <silent> <C-S> :if expand("%") == ""<CR>browse confirm w<CR>else<CR>confirm w<CR>endif<CR>
+imap <c-s> <esc><c-s>a
 
 " Fix regexes
 nnoremap / /\v
 vnoremap / /\v
 
 " Replace all instance of word under cursor
-nnoremap <leader>s :%s/\<<C-r><C-w>\>/
+" nnoremap <leader>s :%s/\<<C-r><C-w>\>/
 
 " Ack with the word under cursor
 nnoremap <leader>a :Ack <C-r><C-w>
@@ -240,15 +277,10 @@ nmap <silent> <leader>o :NERDTreeToggle<CR>
 imap <C-l> <Space>=><Space>
 
 " Ack
-nnoremap <c-a> :Ack 
+nnoremap <c-a> :Ack
 
 " Auto-completion for command line mode
 cmap <C-n> <Up>
-
-nmap <leader>p iputs "
-imap <leader>p puts "
-map <leader># i#{
-imap <leader># #{
 
 " CtrlP
 map <leader>b :CtrlPBuffer<cr>
@@ -257,7 +289,7 @@ map <leader>b :CtrlPBuffer<cr>
 map <leader>n :call RenameFile()<cr>
 
 " Vimux
- 
+
 " Run the current file with rspec
 map <leader>rb :call RunVimTmuxCommand("clear; rspec " . bufname("%"))<CR>
 
@@ -276,11 +308,20 @@ map <leader>rx :CloseVimTmuxPanes<CR>
 " Interrupt any command running in the runner pane
 map <leader>rs :InterruptVimTmuxRunner<CR>
 
+" Indent file
+map <leader>i gg=G
 
 " - Abbreviations ---------------------------------------------------- "
 cnoreabbrev ack Ack
 
 " - Auto Commands ---------------------------------------------------- "
+autocmd FileType text setlocal textwidth=78
+
+" Ruby
+au! FileType ruby nmap <leader>p iputs "
+au! FileType ruby imap <leader>p puts "
+au! FileType ruby map <leader># i#{
+au! FileType ruby imap <leader># #{
 
 " Spell checking, wrapping, and autocomplete for text files
 autocmd BufNewFile,BufRead *.txt set wrap
@@ -312,6 +353,12 @@ autocmd BufNewFile,BufRead *.pde set filetype=arduino
 " Objective-C
 autocmd BufNewFile,BufRead *.m set filetype=objc
 
+" XAML
+autocmd BufNewFile,BufRead *.xaml set filetype=xml
+
+" Clojure
+autocmd BufNewFile,BufRead *.clj set filetype=clojure
+
 " Rspec/Cucumber
 autocmd BufNewFile,BufRead *.feature,*_spec.rb map <leader>e :call RunCurrentLineTestTest()<cr>
 autocmd BufNewFile,BufRead *.feature,*_spec.rb map <leader>f :call RunCurrentTest()<cr>
@@ -319,19 +366,39 @@ autocmd BufNewFile,BufRead *.feature,*_spec.rb map <leader>f :call RunCurrentTes
 " eRuby Javascript
 autocmd BufNewFile,BufRead *.js.erb set filetype=javascript
 
+" Markdown
+autocmd BufNewFile,BufRead *.md set filetype=markdown
+
 " Idea files
 autocmd BufNewFile,BufRead *.idea set filetype=markdown
-autocmd BufNewFile,BufRead *.idea nmap <leader>done r✓ 
-autocmd BufNewFile,BufRead *.idea nmap <leader>new o☐ 
+autocmd BufNewFile,BufRead *.idea nmap <leader>done r✓
+autocmd BufNewFile,BufRead *.idea nmap <leader>new o☐
+
+" Rainbow Parentheses
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
 " - Functions ------------------------------------------------------- "
 
 function! RunCurrentTest()
-  execute "!" . CorrectTestRunner() " --drb" expand('%:p')
+  execute CorrectCommandExecutor() . CorrectTestRunner() " --drb" expand('%:p') . "\")"
 endfunction
 
 function! RunCurrentLineTestTest()
-  execute "!" . CorrectTestRunner() " --drb" expand('%:p') . ":" . line(".")
+  execute CorrectCommandExecutor() . CorrectTestRunner() " --drb" expand('%:p') . ":" . line(".") . "\")"
+endfunction
+
+function! RunNormalCommand(cmd)
+  return "! " . cmd
+endfunction
+
+function! CorrectCommandExecutor()
+  if &term == "screen"
+    return "call RunVimTmuxCommand(\" "
+  endif
+  return "RunNormalCommand(\" "
 endfunction
 
 function! CorrectTestRunner()

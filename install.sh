@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 function link_file
 {
@@ -8,7 +8,7 @@ function link_file
 
 function replace_file
 {
-  rm "$HOME/.$1"
+  rm -rfv "$HOME/.$1"
   link_file $1
 }
 
@@ -16,7 +16,7 @@ function link_dotfiles
 {
   replace_all=false
 
-  for file in $1
+  for file in $*
   do
     if [ -e "$HOME/.$file" ]
     then
@@ -57,8 +57,24 @@ function install_vundle
   fi
 }
 
-ignore_files='(LICENSE)|(install.sh)|(README)|(__)|(Rakefile)'
+function install_vim_bundles
+{
+  vim -c ":BundleInstall" -c ":qa"
+}
+
+function link_ssh
+{
+  if [ ! -h $HOME/.ssh/rc ]
+  then 
+    echo "Linking $HOME/.ssh/rc"
+    ln -s ssh/rc $HOME/.ssh/rc
+  fi
+}
+
+ignore_files='(LICENSE)|(install.sh)|(README)|(__)|(Rakefile)|(ssh)'
 files=`ls | egrep -v "$ignore_files"`
 
 link_dotfiles $files
+link_ssh
 install_vundle
+install_vim_bundles

@@ -1,8 +1,10 @@
 .DS_Store
 git.yml
 zsh/history
+oh-my-zsh/cache
 vim/bundle
 vim/.netrwhist
+vim/backups
 *weechatlog
 *.log
 __*
