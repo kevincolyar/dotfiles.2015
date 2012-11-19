@@ -12,7 +12,7 @@ elif [ `uname` = "Linux" ]; then
   . ~/.zsh/linux/aliases
   . ~/.zsh/linux/paths
 
-  # When on a linux box, change to 256 colors
+  # When on a remote linux box, change to 256 colors
   if [ "$TERM" = "screen" ]; then
     export TERM=screen-256color
   fi
