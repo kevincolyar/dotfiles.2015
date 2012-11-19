@@ -57,6 +57,11 @@ function install_vundle
   fi
 }
 
+function install_vim_bundles
+{
+  vim -c ":BundleInstall" -c ":qa"
+}
+
 function link_ssh
 {
   if [ ! -h $HOME/.ssh/rc ]
@@ -72,3 +77,4 @@ files=`ls | egrep -v "$ignore_files"`
 link_dotfiles $files
 link_ssh
 install_vundle
+install_vim_bundles

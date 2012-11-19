@@ -148,6 +148,7 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'mattn/gist-vim'
 Bundle 'xenoterracide/css.vim'
 Bundle 'mileszs/ack.vim'
+Bundle 'nelstrom/vim-markdown-folding'
 " Bundle 'ujihisa/camelcasemotion'
 Bundle 'Raimondi/delimitMate'
 Bundle 'edsono/vim-matchit'
@@ -238,7 +239,7 @@ let vimclojure#NailgunClient = $HOME . "/bin/ng"
 map Y y$
 
 " <leader>/ toggles hlearch
-map <silent><leader>/ :se invhlsearch<CR>
+nmap <silent><cr> :se invhlsearch<CR>
 
 map <silent><leader>q :q<CR>
 map <silent><leader>s :split<CR>
@@ -357,7 +358,7 @@ autocmd BufNewFile,BufRead *.m set filetype=objc
 autocmd BufNewFile,BufRead *.xaml set filetype=xml
 
 " Clojure
-autocmd BufNewFile,BufRead *.clj set filetype=clojure
+autocmd BufNewFile,BufRead *.clj,*.cljs set filetype=clojure
 
 " Rspec/Cucumber
 autocmd BufNewFile,BufRead *.feature,*_spec.rb map <leader>e :call RunCurrentLineTestTest()<cr>
