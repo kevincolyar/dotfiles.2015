@@ -12,8 +12,18 @@ Requirements
 Installation
 ============
 
+## OSX
+
 ```sh
-    git clone git://github.com/kevincolyar/dotfiles ~/.dotfiles
+    git clone git://github.com/kevincolyar/dotfiles -b osx ~/.dotfiles
+```
+
+## Debian
+
+```sh
+    git clone git://github.com/kevincolyar/dotfiles -b debian ~/.dotfiles
+```
+
     cd ~/.dotfiles
     ./install.sh
 ```
