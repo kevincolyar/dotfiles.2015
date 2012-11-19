@@ -1,4 +1,0 @@
-# ODBC
-export ODBCINI=/etc
-export ODBCSYSINI=/etc
-export FREETDSCONF=/etc/freetds.conf

@@ -7,7 +7,7 @@ alias l="ls -lAhG"
 alias ll="ls -lGh"
 alias la='ls -lAGh'
 
-# ls
+# less
 alias less="less -R"
 
 # git
@@ -49,5 +49,5 @@ function pless() {
 }
 
 alias vi='vim'
-
+alias gitx="/Applications/GitX.app/Contents/MacOS/GitX"
 alias truecrypt='/Applications/TrueCrypt.app/Contents/MacOS/Truecrypt --text'

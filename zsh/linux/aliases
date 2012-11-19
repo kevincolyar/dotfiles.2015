@@ -1,5 +1,0 @@
-# ls
-alias ls="ls -FG --color"
-alias l="ls -lAhG --color"
-alias ll="ls -lG --color"
-alias la='ls -AG --color'
