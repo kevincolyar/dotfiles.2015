@@ -10,3 +10,10 @@ export PATH="$HOME/bin/:$HOME/bin/ssh:$HOME/bin/rsync:$PATH"
 export ODBCINI=/etc
 export ODBCSYSINI=/etc
 export FREETDSCONF=/etc/freetds.conf
+
+# Oracle
+export ORACLE_HOME=/opt/oracle/instantclient_11_1
+export TNS_ADMIN=$ORACLE_HOME
+export LD_LIBRARY_PATH=$ORACLE_HOME
+export DYLD_LIBRARY_PATH=$ORACLE_HOME
+export PATH=$PATH:$ORACLE_HOME
