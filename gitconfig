@@ -28,5 +28,6 @@
   trustExitCode = false
 [github]
   user = kevincolyar
-  token = 
-
+  token =
+[http]
+  sslVerify = false
