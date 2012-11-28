@@ -165,10 +165,10 @@ Bundle 'benmills/vimux.git'
 Bundle "mattn/zencoding-vim"
 
 " Clojure
-Bundle "vim-scripts/VimClojure"
+" Bundle "vim-scripts/VimClojure"
 Bundle "kien/rainbow_parentheses.vim"
 
-Bundle "Shougo/neocomplcache"
+" Bundle "Shougo/neocomplcache"
 
 " Turn off delimateMate (which provides auto-closing parens) for Clojure files
 " as they just get in the way
