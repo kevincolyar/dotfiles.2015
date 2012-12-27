@@ -1,10 +1,14 @@
-export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin:$PATH"
+# Java
+# export JAVA_HOME="/Library/Java/Home"
 
-# Man
-export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
+# Vim
+export EDITOR="vim"
+export GIT_EDITOR="vim"
 
-# Home bin
-export PATH="$HOME/bin/:$HOME/bin/ssh:$HOME/bin/rsync:$PATH"
+export PATH="$HOME/bin:$HOME/bin/ssh:$HOME/bin/rsync:$PATH"
+
+# Homebrew
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 # ODBC
 export ODBCINI=/etc
