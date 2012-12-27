@@ -59,7 +59,7 @@ function install_vundle
 
 function install_vim_bundles
 {
-  vim -c ":BundleInstall" -c ":qa"
+  vim +BundleInstall +qall
 }
 
 function link_ssh
