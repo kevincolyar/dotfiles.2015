@@ -20,6 +20,9 @@ export GIT_EDITOR="vim"
 
 export PATH="$HOME/bin:$HOME/bin/ssh:$HOME/bin/rsync:$PATH"
 
+# Homebrew Python
+export PATH=/usr/local/share/python:$PATH
+
 # Homebrew
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
