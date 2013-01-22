@@ -71,7 +71,7 @@ function link_ssh
   fi
 }
 
-ignore_files='(LICENSE)|(install.sh)|(README)|(__)|(Rakefile)|(ssh)'
+ignore_files='(LICENSE)|(install.sh)|(README)|(__)|(Rakefile)|(ssh)|(fonts)'
 files=`ls | egrep -v "$ignore_files"`
 
 link_dotfiles $files
