@@ -65,7 +65,7 @@ function install_vim_bundles
 function link_ssh
 {
   if [ ! -h $HOME/.ssh/rc ]
-  then 
+  then
     echo "Linking $HOME/.ssh/rc"
     ln -s ssh/rc $HOME/.ssh/rc
   fi
@@ -78,3 +78,4 @@ link_dotfiles $files
 link_ssh
 install_vundle
 install_vim_bundles
+./osx.sh
