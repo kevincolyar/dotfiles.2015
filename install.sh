@@ -71,13 +71,13 @@ function install_fonts
 function link_ssh
 {
   if [ ! -h $HOME/.ssh/rc ]
-  then 
+  then
     echo "Linking $HOME/.ssh/rc"
     ln -s ssh/rc $HOME/.ssh/rc
   fi
 }
 
-ignore_files='(LICENSE)|(install.sh)|(README)|(__)|(Rakefile)|(ssh)'
+ignore_files='(LICENSE)|(install.sh)|(README)|(__)|(Rakefile)|(ssh)|(fonts)'
 files=`ls | egrep -v "$ignore_files"`
 
 link_dotfiles $files
@@ -85,3 +85,4 @@ link_ssh
 install_vundle
 install_vim_bundles
 install_fonts
+./osx.sh
