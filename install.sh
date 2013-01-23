@@ -62,6 +62,12 @@ function install_vim_bundles
   vim +BundleInstall +qall
 }
 
+function install_fonts
+{
+  echo 'Install fonts'
+  cp fonts/* ~/Library/Fonts/
+}
+
 function link_ssh
 {
   if [ ! -h $HOME/.ssh/rc ]
@@ -78,3 +84,4 @@ link_dotfiles $files
 link_ssh
 install_vundle
 install_vim_bundles
+install_fonts
