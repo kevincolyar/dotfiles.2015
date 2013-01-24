@@ -20,7 +20,7 @@ Bundle 'tpope/vim-repeat'
 Bundle 'msanders/cocoa.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
-Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Bundle 'Lokaltog/vim-powerline'
 Bundle 'kien/ctrlp.vim'
 Bundle 'esukram/taglist.vim'
 Bundle 'vim-ruby/vim-ruby'
@@ -179,15 +179,18 @@ endif
 
 
 " - Variables ------------------------------------------------------------- "
- 
+
 let mapleader = ";"
 let maplocalleader = ";"
- 
+
 let localvimrc_sandbox=0
 let localvimrc_ask=0
 
 " Syntastic
 let g:syntastic_enable_signs=1
+
+" Powerline
+let g:Powerline_symbols = 'fancy'
 
 " CtrlP
 let g:ctrlp_map = '<leader>t'

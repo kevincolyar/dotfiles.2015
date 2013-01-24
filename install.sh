@@ -59,7 +59,7 @@ function install_vundle
 
 function install_vim_bundles
 {
-  vim +BundleInstall +qall
+  vim -c ":BundleClean!" -c ":BundleInstall" -c ":qa"
 }
 
 function install_fonts
