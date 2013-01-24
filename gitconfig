@@ -14,7 +14,7 @@
   branch = auto
 [core]
   excludesfile = ~/.gitignore
-  editor = vim 
+  editor = vim
 [apply]
   whitespace = nowarn
 [init]
@@ -31,3 +31,5 @@
   token =
 [http]
   sslVerify = false
+[push]
+  default = matching
