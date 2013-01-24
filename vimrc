@@ -1,7 +1,62 @@
 set nocompatible               " Use vim features
-
-filetype off
 colorscheme molokai            " Color scheme
+
+" - Vundle ---------------------------------------------------------- "
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-rake'
+Bundle 'tpope/vim-git'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-ragtag'
+Bundle 'tpope/vim-cucumber'
+Bundle 'tpope/vim-repeat'
+Bundle 'msanders/cocoa.vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
+Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Bundle 'kien/ctrlp.vim'
+Bundle 'esukram/taglist.vim'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'pangloss/vim-javascript'
+Bundle 'mattn/gist-vim'
+Bundle 'xenoterracide/css.vim'
+Bundle 'mileszs/ack.vim'
+Bundle 'nelstrom/vim-markdown-folding'
+Bundle 'Raimondi/delimitMate'
+Bundle 'edsono/vim-matchit'
+Bundle 'vim-scripts/AutoTag'
+Bundle 'vim-scripts/IndexedSearch'
+Bundle 'vim-scripts/tComment'
+Bundle "vim-scripts/applescript.vim"
+Bundle 'derekwyatt/vim-fswitch'
+Bundle 'godlygeek/tabular'
+Bundle 'gregsexton/MatchTag'
+Bundle 'ecomba/vim-ruby-refactoring'
+Bundle 'benmills/vimux.git'
+Bundle "mattn/zencoding-vim"
+Bundle "Shougo/neocomplcache"
+
+" Snipmate
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "honza/snipmate-snippets"
+Bundle "garbas/vim-snipmate"
+
+" Clojure
+Bundle "vim-scripts/VimClojure"
+Bundle "tpope/vim-foreplay.git"
+
+" R
+Bundle "vim-scripts/Vim-R-plugin"
+
+filetype plugin indent on      " Load ftplugins and indent files
 syntax on                      " Turn on syntax highlighting
 
 " - Settings ---------------------------------------------------------- "
@@ -13,6 +68,8 @@ set cursorline                  " Highlight line curor is on
 set number                      " Show line numbers
 set history=1000                " Lots of history
 set laststatus=2                " Always show status bar
+
+set backspace=indent,eol,start  " Always backspace
 
 set showcmd     		" Show incomplete cmds down the bottom
 set showmode    		" Show current mode down the bottom
@@ -120,85 +177,17 @@ else
 endif
 
 
-" - Vundle ---------------------------------------------------------- "
-
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rails'
-" For :A (and other stuff) in plain ol ruby projects
-Bundle 'tpope/vim-rake'
-Bundle 'tpope/vim-git'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-ragtag'
-Bundle 'tpope/vim-cucumber'
-Bundle 'tpope/vim-repeat'
-Bundle 'msanders/cocoa.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'kien/ctrlp.vim'
-Bundle 'esukram/taglist.vim'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'pangloss/vim-javascript'
-Bundle 'mattn/gist-vim'
-Bundle 'xenoterracide/css.vim'
-Bundle 'mileszs/ack.vim'
-Bundle 'nelstrom/vim-markdown-folding'
-" Bundle 'ujihisa/camelcasemotion'
-Bundle 'Raimondi/delimitMate'
-Bundle 'edsono/vim-matchit'
-Bundle 'vim-scripts/AutoTag'
-Bundle 'vim-scripts/IndexedSearch'
-Bundle 'vim-scripts/tComment'
-Bundle 'derekwyatt/vim-fswitch'
-Bundle 'godlygeek/tabular'
-Bundle 'gregsexton/MatchTag'
-" Bundle 'https://github.com/vim-scripts/dbext.vim.git'
-Bundle 'ecomba/vim-ruby-refactoring'
-Bundle 'benmills/vimux.git'
-" Bundle "sjl/vitality.vim"  " Still need a fix for, mangles buffer on 'r' and 'gcc' commands
-Bundle "mattn/zencoding-vim"
-
-" Clojure
-" Bundle "vim-scripts/VimClojure"
-Bundle "kien/rainbow_parentheses.vim"
-
-" Bundle "Shougo/neocomplcache"
-
-" Turn off delimateMate (which provides auto-closing parens) for Clojure files
-" as they just get in the way
-au! FileType clojure let b:loaded_delimitMate=1
-
-
-" Snipmate
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "honza/snipmate-snippets"
-Bundle "garbas/vim-snipmate"
-
-filetype plugin indent on      " Load ftplugins and indent files
 
 " - Variables ------------------------------------------------------------- "
  
 let mapleader = ";"
 let maplocalleader = ";"
-; 
+ 
 let localvimrc_sandbox=0
 let localvimrc_ask=0
 
-let g:Powerline_symbols='fancy'
-
 " Syntastic
 let g:syntastic_enable_signs=1
-
-" Slimv
-let g:slimv_leader = '\'
-let g:paredit_mode = 0
 
 " CtrlP
 let g:ctrlp_map = '<leader>t'
@@ -229,9 +218,9 @@ let vimclojure#FuzzyIndent=1
 let vimclojure#HighlightBuiltins=1
 let vimclojure#HighlightContrib=1
 let vimclojure#DynamicHighlighting=1
-let vimclojure#ParenRainbow=0
-let vimclojure#WantNailgun=1
-let vimclojure#NailgunClient = $HOME . "/bin/ng"
+let vimclojure#ParenRainbow=1
+" let vimclojure#WantNailgun=1
+let tlist_clojure_settings = 'lisp;f:function'
 
 " - Maps ----------------------------------------------------------------- "
 
@@ -359,6 +348,9 @@ autocmd BufNewFile,BufRead *.xaml set filetype=xml
 
 " Clojure
 autocmd BufNewFile,BufRead *.clj,*.cljs set filetype=clojure
+autocmd! FileType *clojure let b:loaded_delimitMate=1
+autocmd FileType * if &ft == "vimclojure.clojure" | imap <c-k> <Plug>ClojureReplUpHistory.| endif
+autocmd FileType * if &ft == "vimclojure.clojure" | imap <c-j> <Plug>ClojureReplDownHistory.| endif
 
 " Rspec/Cucumber
 autocmd BufNewFile,BufRead *.feature,*_spec.rb map <leader>e :call RunCurrentLineTestTest()<cr>
@@ -370,16 +362,16 @@ autocmd BufNewFile,BufRead *.js.erb set filetype=javascript
 " Markdown
 autocmd BufNewFile,BufRead *.md set filetype=markdown
 
+" Applescript
+autocmd BufNewFile,BufRead *.appl set filetype=applescript
+
 " Idea files
 autocmd BufNewFile,BufRead *.idea set filetype=markdown
 autocmd BufNewFile,BufRead *.idea nmap <leader>done r✓
 autocmd BufNewFile,BufRead *.idea nmap <leader>new o☐
 
-" Rainbow Parentheses
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+" Journal
+autocmd BufNewFile,BufRead journal.md nmap <leader>c :call CleanJournal()<cr>
 
 " - Functions ------------------------------------------------------- "
 
@@ -424,4 +416,8 @@ function! RenameFile()
     exec ':silent !rm ' . old_name
     redraw!
   endif
+endfunction
+
+function! CleanJournal()
+  exec '%s/###.*\n\n\n//'
 endfunction
