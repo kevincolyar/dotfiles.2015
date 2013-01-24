@@ -12,16 +12,20 @@ Requirements
 Installation
 ============
 
-## OSX
+### On OSX:
 
 ```sh
     git clone git://github.com/kevincolyar/dotfiles -b osx ~/.dotfiles
 ```
 
-## Debian
+### On Debian:
 
 ```sh
     git clone git://github.com/kevincolyar/dotfiles -b debian ~/.dotfiles
+```
+
+### Run installation script:
+
 ```
 
     cd ~/.dotfiles
@@ -45,6 +49,6 @@ Download
 ===========
 ```sh
 
-  curl -L https://github.com/kevincolyar/dotfiles/tarball/master | tar zx
+  curl -L https://github.com/kevincolyar/dotfiles/tarball/__your_distro__ | tar zx
 
 ```
