@@ -29,7 +29,7 @@ Bundle 'mattn/gist-vim'
 Bundle 'xenoterracide/css.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'nelstrom/vim-markdown-folding'
-Bundle 'Raimondi/delimitMate'
+" Bundle 'Raimondi/delimitMate'
 Bundle 'edsono/vim-matchit'
 Bundle 'vim-scripts/AutoTag'
 Bundle 'vim-scripts/IndexedSearch'
@@ -42,6 +42,7 @@ Bundle 'ecomba/vim-ruby-refactoring'
 Bundle 'benmills/vimux.git'
 Bundle "mattn/zencoding-vim"
 Bundle "Shougo/neocomplcache"
+Bundle "airblade/vim-gitgutter"
 
 " Snipmate
 Bundle "MarcWeber/vim-addon-mw-utils"
@@ -55,6 +56,9 @@ Bundle "tpope/vim-foreplay.git"
 
 " R
 Bundle "vim-scripts/Vim-R-plugin"
+
+" Hardmode
+Bundle "wikitopian/hardmode"
 
 filetype plugin indent on      " Load ftplugins and indent files
 syntax on                      " Turn on syntax highlighting
@@ -86,7 +90,7 @@ set ignorecase  		" Ignore case in searches
 set complete=.,b,u,t            " Omnicomplete
 set completeopt=menu,preview
 
-set tags=./tags 		" Ctags
+set tags=./tags		        " Ctags
 set grepprg=ack			" Using ack instead of grep
 
 set vb                          " Use visual bell instead of audible bell
@@ -104,6 +108,8 @@ set wildmenu                    "enable ctrl-n and ctrl-p to scroll thru matches
 set wildignore=*.o,*.obj,*~     "stuff to ignore when tab completing
 set wildignore+=vendor/rails/**
 set wildignore+=*.swp
+set wildignore+=tags
+set wildignore+=build
 
 set listchars=tab:▸\ ,eol:¬     " Tabs and trailing space characters
 set nolist                      " Off by default
@@ -201,8 +207,11 @@ let g:ctrlp_user_command = "find %s '(' -type f -or -type l ')' -maxdepth " . g:
 let g:ctrlp_dont_split = 'NERD_tree_2'  " let ctrlp open up in that initial window, but future ones (which are really thin sidebars) will still jump out.
 
 " NerdTree
-let NERDTreeWinSize=40
-let NERDTreeDirArrows=1
+let g:NERDTreeWinSize=40
+let g:NERDTreeDirArrows=1
+let g:NERDTreeMinimalUI=1
+let g:NERDTreeAutoDeleteBuffer=1
+let g:NERDTreeMapHelp=''
 
 " Gist
 let g:gist_open_browser_after_post = 1
@@ -281,6 +290,9 @@ map <leader>b :CtrlPBuffer<cr>
 " Rename current file (see Functions section)
 map <leader>n :call RenameFile()<cr>
 
+" Ctags
+map <leader>r :silent! ctags -R 2>&1 > /dev/null &<cr>
+
 " Vimux
 
 " Run the current file with rspec
@@ -303,6 +315,9 @@ map <leader>rs :InterruptVimTmuxRunner<CR>
 
 " Indent file
 map <leader>i gg=G
+
+" Hardmode
+nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
 
 " - Abbreviations ---------------------------------------------------- "
 cnoreabbrev ack Ack
@@ -376,6 +391,10 @@ autocmd BufNewFile,BufRead *.idea nmap <leader>new o☐
 " Journal
 autocmd BufNewFile,BufRead journal.md nmap <leader>c :call CleanJournal()<cr>
 
+" Hardmode
+autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+autocmd FileType * if match("(gitcommit)|(nerdtree)|(qf)", &ft) | silent! call EasyMode() | endif
+
 " - Functions ------------------------------------------------------- "
 
 function! RunCurrentTest()
@@ -391,7 +410,7 @@ function! RunNormalCommand(cmd)
 endfunction
 
 function! CorrectCommandExecutor()
-  if &term == "screen"
+  if &term == "screen-256color"
     return "call RunVimTmuxCommand(\" "
   endif
   return "RunNormalCommand(\" "
