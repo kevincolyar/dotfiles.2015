@@ -393,14 +393,11 @@ autocmd BufNewFile,BufRead *.clj map <leader>f :%Eval<cr>
 
 " Journal
 autocmd BufNewFile,BufRead journal.md nmap <leader>c :call CleanJournal()<cr>
-<<<<<<< HEAD
 
 " Hardmode
 autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 autocmd FileType * if match("(gitcommit)|(nerdtree)|(qf)", &ft) | silent! call EasyMode() | endif
 
-=======
->>>>>>> 119d33f475347e153cb13d6d7110d691b6d5ba66
 " - Functions ------------------------------------------------------- "
 
 function! RunCurrentTest()
