@@ -373,9 +373,11 @@ autocmd BufNewFile,BufRead *.idea set filetype=markdown
 autocmd BufNewFile,BufRead *.idea nmap <leader>done r✓
 autocmd BufNewFile,BufRead *.idea nmap <leader>new o☐
 
+" Clojure
+autocmd BufNewFile,BufRead *.clj map <leader>f :%Eval<cr>
+
 " Journal
 autocmd BufNewFile,BufRead journal.md nmap <leader>c :call CleanJournal()<cr>
-
 " - Functions ------------------------------------------------------- "
 
 function! RunCurrentTest()
