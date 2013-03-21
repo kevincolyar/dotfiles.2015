@@ -51,8 +51,9 @@ Bundle "honza/snipmate-snippets"
 Bundle "garbas/vim-snipmate"
 
 " Clojure
-Bundle "vim-scripts/VimClojure"
-Bundle "tpope/vim-foreplay.git"
+Bundle "tpope/vim-foreplay"
+Bundle "tpope/vim-classpath"
+Bundle "guns/vim-clojure-static"
 
 " R
 Bundle "vim-scripts/Vim-R-plugin"
@@ -64,7 +65,7 @@ filetype plugin indent on      " Load ftplugins and indent files
 syntax on                      " Turn on syntax highlighting
 
 " - Settings ---------------------------------------------------------- "
- 
+
 set shell=/bin/sh               " Ensure vim always runs from a shell, rvm needs this.
 set lazyredraw                  " Do not redraw while running macros (much faster) (LazyRedraw)
 set clipboard=unnamed           " Use the OSX pasteboard
@@ -401,11 +402,11 @@ autocmd FileType * if match("(gitcommit)|(nerdtree)|(qf)", &ft) | silent! call E
 " - Functions ------------------------------------------------------- "
 
 function! RunCurrentTest()
-  execute CorrectCommandExecutor() . CorrectTestRunner() " --drb" expand('%:p') . "\")"
+  execute CorrectCommandExecutor() . CorrectTestRunner() " " expand('%:p') . "\")"
 endfunction
 
 function! RunCurrentLineTestTest()
-  execute CorrectCommandExecutor() . CorrectTestRunner() " --drb" expand('%:p') . ":" . line(".") . "\")"
+  execute CorrectCommandExecutor() . CorrectTestRunner() " " expand('%:p') . ":" . line(".") . "\")"
 endfunction
 
 function! RunNormalCommand(cmd)
