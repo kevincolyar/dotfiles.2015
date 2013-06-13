@@ -1,16 +1,3 @@
-# ODBC
-#export ODBCINI=/opt/local/etc
-#export ODBCSYSINI=/opt/local/etc
-#export FREETDSCONF=/opt/local/etc/freetds.conf
-
-# Oracle
-#  Not needed, waiting for Oracle to release 10.8 compatible InstantClient
-# export ORACLE_HOME=~/Library/Oracle/instantclient/10.2.0.4
-# export TNS_ADMIN=$ORACLE_HOME
-# export LD_LIBRARY_PATH=$ORACLE_HOME
-# export DYLD_LIBRARY_PATH=$ORACLE_HOME
-# export PATH=$PATH:$ORACLE_HOME
-
 # Java
 # export JAVA_HOME="/Library/Java/Home"
 
@@ -26,3 +13,14 @@ export PATH=/usr/local/share/python:$PATH
 # Homebrew
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
+# ODBC
+export ODBCINI=/etc
+export ODBCSYSINI=/etc
+export FREETDSCONF=/etc/freetds.conf
+
+# Oracle
+export ORACLE_HOME=/opt/oracle/instantclient_11_1
+export TNS_ADMIN=$ORACLE_HOME
+export LD_LIBRARY_PATH=$ORACLE_HOME
+export DYLD_LIBRARY_PATH=$ORACLE_HOME
+export PATH=$PATH:$ORACLE_HOME
