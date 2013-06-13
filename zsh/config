@@ -13,7 +13,7 @@ fpath=(~/.zsh/functions $fpath)
 
 autoload -U ~/.zsh/functions/*(:t)
 
-REPORTTIME=10 # print elapsed time when more than 10 seconds
+export REPORTTIME=10 # print elapsed time when more than 10 seconds
 
 setopt NO_BG_NICE # don't nice background tasks
 setopt NO_HUP
@@ -42,9 +42,10 @@ function precmd () {
 }
 
 # History settings
-HISTSIZE=1000
-SAVEHIST=1000
-HISTFILE=$HOME/.zsh_history
+export HISTSIZE=10000
+export SAVEHIST=10000
+export HISTFILE=$HOME/.zsh_history
+export HISTIGNORE="&:ls:ll:la:l.:pwd:exit:clear:clr:[bf]g"
 setopt append_history
 setopt inc_append_history
 setopt extended_history
