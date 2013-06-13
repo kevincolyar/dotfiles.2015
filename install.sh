@@ -62,19 +62,9 @@ function install_vim_bundles
   vim -c ":BundleClean!" -c ":BundleInstall" -c ":qa"
 }
 
-function link_ssh
-{
-  if [ ! -h $HOME/.ssh/rc ]
-  then 
-    echo "Linking $HOME/.ssh/rc"
-    ln -s ssh/rc $HOME/.ssh/rc
-  fi
-}
-
-ignore_files='(LICENSE)|(install.sh)|(README)|(__)|(Rakefile)|(ssh)'
+ignore_files='(LICENSE)|(install.sh)|(README)|(__)|(Rakefile)'
 files=`ls | egrep -v "$ignore_files"`
 
 link_dotfiles $files
-link_ssh
 install_vundle
 install_vim_bundles

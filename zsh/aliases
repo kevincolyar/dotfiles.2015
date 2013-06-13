@@ -49,3 +49,4 @@ function pless() {
 }
 
 alias vi='vim'
+alias webserver="python -m SimpleHTTPServer"
