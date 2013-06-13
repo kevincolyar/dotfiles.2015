@@ -4,4 +4,3 @@
 . ~/.zsh/completion
 . ~/.zsh/paths
 . ~/.zsh/rvm
-
