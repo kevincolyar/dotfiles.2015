@@ -1,14 +1,40 @@
-"1.0rc1
+" vi: set ft=pentadactyl:
 
 loadplugins '\.(js|penta)$'
 group user
 
-" vim: set ft=pentadactyl:
+highlight Hint       font-size: 14px; background: rgba(210,1,133,0.8) !important; border: 2px solid rgb(165,1,105); padding: 4px; border-radius: 3px; font-weight: bold; margin-left: -5px; color: white; font-family: Helvetica; line-height:1em;
+highlight HintActive background: rgba(145,197,43,0.8)    !important;
+highlight HintElem   background: rgba(255, 209, 20, 0.7) !important;
+highlight StatusLine -moz-appearance: none !important; font-weight: bold; background: transparent !important; border: 0px !important; min-height: 22px !important; text-shadow: none !important; font: normal 13px/1 'Menlo' !important; padding: 3px 0px 3px 5px !important;
+highlight CmdLine    padding: 1px !important; font: normal 13px 'Menlo' !important;
+highlight CmdOutput  font: normal 13px 'Menlo' !important;
+highlight CompItem   font: normal 13px 'Menlo' !important;
 
-set guioptions+=rbmsT
-set mapleader=,
+highlight Find   background: #d6c149; color: #000;
+
+set runtimepath=/Users/kevinc/.pentadactyl
+set editor='vim -f +<line> <file>'
+set followhints=1
+set showtabline=multitab
+set showstatuslinks=command
+
+set guioptions+=rbms
 set hintkeys=asdfjkl
 
+set hlfind
+
+set defsearch=startpage
+
+" Maps
+map <Leader> ,
+
+nmap -builtin <bs> <nop>
+
+nmap -builtin j 3j
+nmap -builtin k 3k
+
+javascript dactyl.beep = function(){ return false; }
 
 " Gmail
 " set passkeys+='https://mail\.google\.com':xsem!#rRaAvN[]{}z.IU=-gidac/?lujkonp
@@ -19,5 +45,5 @@ set hintkeys=asdfjkl
 " Remember the Milk
 "set passkeys+="https://www\.rememberthemilk\.com/home/kevincolyar*":jkcr
 
-autocmd LocationChange google.com :normal! <C-z>
+autocmd LocationChange mail.google.com :normal! <C-z>
 autocmd LocationChange rememberthemilk.com :normal! <C-z>
