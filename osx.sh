@@ -48,6 +48,22 @@ chflags nohidden ~/Library
 # Reset Launchpad
 [ -e ~/Library/Application\ Support/Dock/*.db ] && rm ~/Library/Application\ Support/Dock/*.db
 
+progs = "
+git
+vim
+tig
+ctags
+markdown
+readline
+reattach-to-user-namespace
+rsync
+sshfs
+tmux
+zsh"
+
+brew install $progs
+
+
 # Kill affected applications
 for app in Safari Finder Dock Mail SystemUIServer; do killall "$app" > /dev/null 2>&1; done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
