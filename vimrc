@@ -14,7 +14,7 @@ Bundle 'tpope/vim-git'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-ragtag'
+" Bundle 'tpope/vim-ragtag'
 Bundle 'tpope/vim-cucumber'
 Bundle 'tpope/vim-repeat'
 Bundle 'msanders/cocoa.vim'
@@ -43,6 +43,13 @@ Bundle 'benmills/vimux.git'
 Bundle "mattn/zencoding-vim"
 Bundle "Shougo/neocomplcache"
 Bundle "airblade/vim-gitgutter"
+Bundle "nono/vim-handlebars"
+Bundle "claco/jasmine.vim"
+Bundle 'dogrover/vim-pentadactyl'
+
+" Dash
+Bundle 'rizzatti/funcoo.vim'
+Bundle 'rizzatti/dash.vim'
 
 " Snipmate
 Bundle "MarcWeber/vim-addon-mw-utils"
@@ -51,7 +58,7 @@ Bundle "honza/snipmate-snippets"
 Bundle "garbas/vim-snipmate"
 
 " Clojure
-Bundle "tpope/vim-foreplay"
+Bundle "tpope/vim-fireplace"
 Bundle "tpope/vim-classpath"
 Bundle "guns/vim-clojure-static"
 
@@ -88,8 +95,8 @@ set linebreak   		" Wrap lines at convenient points
 set ignorecase  		" Ignore case in searches
 " set nohlsearch  	  	" Turn off highlighting when done searching
 
-set complete=.,b,u,t            " Omnicomplete
-set completeopt=menu,preview
+set complete=.,w,b,u,t            " Omnicomplete
+set completeopt=longest,menuone,preview
 
 set tags=./tags		        " Ctags
 set grepprg=ack			" Using ack instead of grep
@@ -98,21 +105,31 @@ set vb                          " Use visual bell instead of audible bell
 set hidden                      " Hide buffers when not displayed
 set t_Co=256                    " Enable 256 color
 set noswapfile                  " It's 2012, Vim.
-set ttimeoutlen=100             " Timeout for key mappings
+
+set notimeout
+set ttimeout
+set ttimeoutlen=10             " Timeout for key mappings
 
 set foldmethod=syntax           "fold based on syntax
 set foldnestmax=3               "deepest fold is 3 levels
 set nofoldenable                "dont fold by default
 
+set wildmenu                            "enable ctrl-n and ctrl-p to scroll thru matches
 set wildmode=longest,list:longest       "make cmdline tab completion similar to bash
-set wildmenu                    "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~     "stuff to ignore when tab completing
-set wildignore+=vendor/rails/**
-set wildignore+=*.swp
+set wildignore=*.o,*.obj,*~             "stuff to ignore when tab completing
+set wildignore+=*.sw?
 set wildignore+=tags
-set wildignore+=build
+set wildignore+=*/build/**
+set wildignore+=.hg,.git,.svn
+set wildignore+=*.jpg,*.bmp,*.gif,*.png.*jpeg,*.pdf
+set wildignore+=*.DS_Store
+set wildignore+=*.orig
+set wildignore+=*/public/__assets
+set wildignore+=*/vendor/rails/**
+set wildignore+=*/tmp/cache
 
-set listchars=tab:▸\ ,eol:¬     " Tabs and trailing space characters
+set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮     " Tabs and trailing space characters
+set showbreak=↪
 set nolist                      " Off by default
 
 set formatoptions-=o            " Dont continue comments when pushing o/O
@@ -122,6 +139,7 @@ set formatoptions-=o            " Dont continue comments when pushing o/O
 " set directory=/var/tmp/
 set nobackup
 set nowb
+set backupskip=/tmp/*,/private/tmp/*
 
 "indent settings
 set shiftwidth=2
@@ -130,7 +148,7 @@ set expandtab
 set autoindent
 
 " Use a line-drawing char for pretty vertical splits.
-set fillchars+=vert:│
+set fillchars+=diff:⣿,vert:│
 
 "vertical/horizontal scroll off settings
 set scrolloff=3
@@ -155,35 +173,9 @@ endif
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 
-" GUI Settings
-if has('gui_running')
-    set guifont=Menlo\ Regular\ for\ Powerline:h14
-
-    " Remove all the UI cruft
-    set go-=TlLrR
-
-    highlight SpellBad term=underline gui=undercurl guisp=Orange
-
-    " Different cursors for different modes.
-    set guicursor=n-c:block-Cursor-blinkon0
-    set guicursor+=v:block-vCursor-blinkon0
-    set guicursor+=i-ci:ver20-iCursor
-
-    if has("gui_macvim")
-      " Full screen means FULL screen
-      set fuoptions=maxvert,maxhorz
-    else
-      " Non-MacVim GUI, like Gvim
-    end
-else
-    " Console Vim
-
-    "Just use underlines and red foreground to mark misspellings in console
-    highlight clear SpellBad
-    highlight SpellBad cterm=underline ctermfg=red
-endif
-
-
+"Just use underlines and red foreground to mark misspellings in console
+highlight clear SpellBad
+highlight SpellBad cterm=underline ctermfg=red
 
 " - Variables ------------------------------------------------------------- "
 
@@ -195,6 +187,9 @@ let localvimrc_ask=0
 
 " Syntastic
 let g:syntastic_enable_signs=1
+let g:syntastic_mode_map={ 'mode': 'active',
+                     \ 'active_filetypes': [],
+                     \ 'passive_filetypes': ['html'] }
 
 " Powerline
 let g:Powerline_symbols = 'fancy'
@@ -204,8 +199,10 @@ let g:ctrlp_map = '<leader>t'
 let g:ctrlp_max_height = 20
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_max_depth = 20
-let g:ctrlp_user_command = "find %s '(' -type f -or -type l ')' -maxdepth " . g:ctrlp_max_depth . " -not -path '*/\.*/*' | egrep -v '\.(swp|swo|log|gitkeep|keepme|so|o)$' | egrep -v '.*\/(build|log|vendor)\/.*'"
-let g:ctrlp_dont_split = 'NERD_tree_2'  " let ctrlp open up in that initial window, but future ones (which are really thin sidebars) will still jump out.
+" let g:ctrlp_user_command =  "find %s '(' -type f -or -type l ')' -maxdepth " . g:ctrlp_max_depth . " -not -path '*/\.*/*' | egrep -v '\.(swp|swo|log|gitkeep|keepme|so|o)$'" . " | egrep -v '.*(build|log|doc|vendor|public\/__assets|tmp\/cache)\/.*'"
+
+" let ctrlp open up in that initial window, but future ones (which are really thin sidebars) will still jump out.
+let g:ctrlp_dont_split = 'NERD_tree_2'
 
 " NerdTree
 let g:NERDTreeWinSize=40
@@ -217,10 +214,8 @@ let g:NERDTreeMapHelp=''
 " Gist
 let g:gist_open_browser_after_post = 1
 
-" Ctags
-if has("macunix")
-  let Tlist_Ctags_Cmd = "ctags"
-endif
+" Taglist
+let Tlist_Ctags_Cmd = "ctags"
 
 " dbext
 let g:dbext_default_profile_myconnection='type=ODBC:user=:passwd=:dsnname=:dbname='
@@ -292,7 +287,10 @@ map <leader>b :CtrlPBuffer<cr>
 map <leader>n :call RenameFile()<cr>
 
 " Ctags
-map <leader>r :silent! ctags -R 2>&1 > /dev/null &<cr>
+map <leader>r :silent! !ctags -R --exclude=build > /dev/null 2>&1 &<cr>:redraw!<cr>
+
+" Dash
+nmap <silent> <leader>d <Plug>DashSearch
 
 " Vimux
 
@@ -320,11 +318,18 @@ map <leader>i gg=G
 " Hardmode
 nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
 
+" Sudo Save
+cmap w!! %!sudo tee > /dev/null %
+
 " - Abbreviations ---------------------------------------------------- "
 cnoreabbrev ack Ack
 
 " - Auto Commands ---------------------------------------------------- "
 autocmd FileType text setlocal textwidth=78
+
+" Resize splits when the window is resized
+au VimResized * :wincmd =
+
 
 " Ruby
 au! FileType ruby nmap <leader>p iputs "
@@ -349,6 +354,9 @@ autocmd FileType text setlocal textwidth=78
 " Close fugitive buffers when hidden
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
+" Start git commit in insert mode
+autocmd BufEnter *.git/COMMIT_EDITMSG exe BufEnterCommit()
+
 " Don't screw up folds when inserting text that might affect them, until
 " leaving insert mode. Foldmethod is local to the window. Protect against
 " screwing up folding when switching between windows.
@@ -372,8 +380,8 @@ autocmd FileType * if &ft == "vimclojure.clojure" | imap <c-k> <Plug>ClojureRepl
 autocmd FileType * if &ft == "vimclojure.clojure" | imap <c-j> <Plug>ClojureReplDownHistory.| endif
 
 " Rspec/Cucumber
-autocmd BufNewFile,BufRead *.feature,*_spec.rb map <leader>e :call RunCurrentLineTestTest()<cr>
-autocmd BufNewFile,BufRead *.feature,*_spec.rb map <leader>f :call RunCurrentTest()<cr>
+autocmd BufNewFile,BufRead *.feature,*_spec.rb,*_spec.js map <leader>e :call RunCurrentLineTestTest()<cr>
+autocmd BufNewFile,BufRead *.feature,*_spec.rb,*_spec.js map <leader>f :call RunCurrentTest()<cr>
 
 " eRuby Javascript
 autocmd BufNewFile,BufRead *.js.erb set filetype=javascript
@@ -431,6 +439,8 @@ function! CorrectTestRunner()
     return "keymando/spec/integration/vim_rspec -c"
   elseif match(expand("%"), "_spec\.rb$") != -1
     return "rspec -c"
+  elseif match(expand("%"), "_spec\.js$") != -1
+    return "jasmine-headless-webkit -c"
   endif
 endfunction
 
@@ -446,4 +456,12 @@ endfunction
 
 function! CleanJournal()
   exec '%s/###.*\n\n\n//'
+endfunction
+
+" Start in insert mode for commit
+function! BufEnterCommit()
+  normal gg0
+  if getline('.') == ''
+    start
+  end
 endfunction
