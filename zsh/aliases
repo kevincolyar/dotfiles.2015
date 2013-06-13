@@ -2,10 +2,10 @@
 alias ..='cd ..'
 
 # ls
-alias ls="ls -FhG --color"
-alias l="ls -lAhG --color"
-alias ll="ls -lhG --color"
-alias la='ls -AhG --color'
+alias ls="ls -FGh"
+alias l="ls -lAhG"
+alias ll="ls -lGh"
+alias la='ls -lAGh'
 
 # less
 alias less="less -R"
@@ -49,4 +49,5 @@ function pless() {
 }
 
 alias vi='vim'
-alias webserver="python -m SimpleHTTPServer"
+alias gitx="/Applications/GitX.app/Contents/MacOS/GitX"
+alias truecrypt='/Applications/TrueCrypt.app/Contents/MacOS/Truecrypt --text'
