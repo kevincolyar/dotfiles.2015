@@ -1,5 +1,5 @@
 set nocompatible               " Use vim features
-colorscheme molokai            " Color scheme
+colorscheme Tomorrow-Night-Bright            " Color scheme
 
 " - Vundle ---------------------------------------------------------- "
 
@@ -20,9 +20,10 @@ Bundle 'tpope/vim-repeat'
 Bundle 'msanders/cocoa.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
-Bundle 'Lokaltog/vim-powerline'
+" Bundle 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-airline'
 Bundle 'kien/ctrlp.vim'
-Bundle 'esukram/taglist.vim'
+" Bundle 'vim-scripts/taglist.vim'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'pangloss/vim-javascript'
 Bundle 'mattn/gist-vim'
@@ -39,23 +40,21 @@ Bundle 'derekwyatt/vim-fswitch'
 Bundle 'godlygeek/tabular'
 Bundle 'gregsexton/MatchTag'
 Bundle 'ecomba/vim-ruby-refactoring'
-Bundle 'benmills/vimux.git'
+Bundle 'benmills/vimux'
 Bundle "mattn/zencoding-vim"
-Bundle "Shougo/neocomplcache"
 Bundle "airblade/vim-gitgutter"
 Bundle "nono/vim-handlebars"
 Bundle "claco/jasmine.vim"
 Bundle 'dogrover/vim-pentadactyl'
+" Bundle 'Valloric/YouCompleteMe'
+Bundle "majutsushi/tagbar"
 
 " Dash
 Bundle 'rizzatti/funcoo.vim'
 Bundle 'rizzatti/dash.vim'
 
-" Snipmate
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "honza/snipmate-snippets"
-Bundle "garbas/vim-snipmate"
+" Snippets
+Bundle "SirVer/ultisnips"
 
 " Clojure
 Bundle "tpope/vim-fireplace"
@@ -126,7 +125,10 @@ set wildignore+=*.DS_Store
 set wildignore+=*.orig
 set wildignore+=*/public/__assets
 set wildignore+=*/vendor/rails/**
-set wildignore+=*/tmp/cache
+set wildignore+=*/tmp
+set wildignore+=*/_mount/**
+set wildignore+=node_modules
+set wildignore+=node_packages
 
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮     " Tabs and trailing space characters
 set showbreak=↪
@@ -177,6 +179,11 @@ match ExtraWhitespace /\s\+$/
 highlight clear SpellBad
 highlight SpellBad cterm=underline ctermfg=red
 
+" Gutter
+highlight SignColumn ctermbg=black
+highlight SyntasticErrorSign ctermfg=red
+highlight SyntasticErrorLine ctermfg=red
+
 " - Variables ------------------------------------------------------------- "
 
 let mapleader = ";"
@@ -186,13 +193,19 @@ let localvimrc_sandbox=0
 let localvimrc_ask=0
 
 " Syntastic
+
 let g:syntastic_enable_signs=1
+let g:syntastic_javascript_checkers = ['jsl']
 let g:syntastic_mode_map={ 'mode': 'active',
                      \ 'active_filetypes': [],
                      \ 'passive_filetypes': ['html'] }
 
 " Powerline
-let g:Powerline_symbols = 'fancy'
+" let g:Powerline_symbols = 'fancy'
+
+" Airline
+let g:airline_powerline_fonts=1
+let g:airline_theme='dark'
 
 " CtrlP
 let g:ctrlp_map = '<leader>t'
@@ -215,7 +228,7 @@ let g:NERDTreeMapHelp=''
 let g:gist_open_browser_after_post = 1
 
 " Taglist
-let Tlist_Ctags_Cmd = "ctags"
+" let Tlist_Ctags_Cmd = "ctags"
 
 " dbext
 let g:dbext_default_profile_myconnection='type=ODBC:user=:passwd=:dsnname=:dbname='
@@ -270,6 +283,9 @@ nmap <leader>l :set list!<CR>
 
 " Toggle NERDTree
 nmap <silent> <leader>o :NERDTreeToggle<CR>
+"
+" Toggle Tagbar
+nmap <silent> <leader>p :TagbarToggle<CR>
 
 " bind control-l to hashrocket
 imap <C-l> <Space>=><Space>
@@ -287,7 +303,8 @@ map <leader>b :CtrlPBuffer<cr>
 map <leader>n :call RenameFile()<cr>
 
 " Ctags
-map <leader>r :silent! !ctags -R --exclude=build > /dev/null 2>&1 &<cr>:redraw!<cr>
+" Settings are in ~/.ctags
+map <leader>r :silent! !ctags -R > /dev/null 2>&1 &<cr>:redraw!<cr>
 
 " Dash
 nmap <silent> <leader>d <Plug>DashSearch
@@ -295,22 +312,22 @@ nmap <silent> <leader>d <Plug>DashSearch
 " Vimux
 
 " Run the current file with rspec
-map <leader>rb :call RunVimTmuxCommand("clear; rspec " . bufname("%"))<CR>
+map <leader>rb :call VimuxRunCommand("clear; rspec " . bufname("%"))<CR>
 
 " Prompt for a command to run
-map <leader>rp :PromptVimTmuxCommand<CR>
+map <leader>rp :VimuxPromptCommand<CR>
 
-" Run last command executed by RunVimTmuxCommand
-map <leader>rl :RunLastVimTmuxCommand<CR>
+" Run last command executed by VimuxRunLastCommand
+map <leader>rl :VimuxRunLastCommand<CR>
 
 " Inspect runner pane
-map <leader>ri :InspectVimTmuxRunner<CR>
+map <leader>ri :VimuxInspectRunner<CR>
 
 " Close all other tmux panes in current window
-map <leader>rx :CloseVimTmuxPanes<CR>
+map <leader>rx :VimuxClosePanes<CR>
 
 " Interrupt any command running in the runner pane
-map <leader>rs :InterruptVimTmuxRunner<CR>
+map <leader>rs :VimuxInterruptRunner<CR>
 
 " Indent file
 map <leader>i gg=G
@@ -371,7 +388,7 @@ autocmd BufNewFile,BufRead *.pde set filetype=arduino
 autocmd BufNewFile,BufRead *.m set filetype=objc
 
 " XAML
-autocmd BufNewFile,BufRead *.xaml set filetype=xml
+autocmd BufNewFile,BufRead *.xaml,*.bmml set filetype=xml
 
 " Clojure
 autocmd BufNewFile,BufRead *.clj,*.cljs set filetype=clojure
@@ -407,6 +424,12 @@ autocmd BufNewFile,BufRead journal.md nmap <leader>c :call CleanJournal()<cr>
 autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 autocmd FileType * if match("(gitcommit)|(nerdtree)|(qf)", &ft) | silent! call EasyMode() | endif
 
+" Ruby completion
+autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+
 " - Functions ------------------------------------------------------- "
 
 function! RunCurrentTest()
@@ -423,7 +446,7 @@ endfunction
 
 function! CorrectCommandExecutor()
   if &term == "screen-256color"
-    return "call RunVimTmuxCommand(\" "
+    return "call VimuxRunCommand(\" "
   endif
   return "RunNormalCommand(\" "
 endfunction
