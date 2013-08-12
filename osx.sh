@@ -48,7 +48,7 @@ chflags nohidden ~/Library
 # Reset Launchpad
 [ -e ~/Library/Application\ Support/Dock/*.db ] && rm ~/Library/Application\ Support/Dock/*.db
 
-progs = "
+progs="
 git
 vim
 tig

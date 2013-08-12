@@ -10,17 +10,10 @@ export PATH="$HOME/bin:$HOME/bin/ssh:$HOME/bin/rsync:$HOME/bin/mount:$PATH"
 # Homebrew Python
 export PATH=/usr/local/share/python:$PATH
 
+# NPM
+export PATH=node_modules/.bin:$PATH
+export PATH=/usr/local/share/npm/bin:$PATH
+
 # Homebrew
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
-# ODBC
-export ODBCINI=/etc
-export ODBCSYSINI=/etc
-export FREETDSCONF=/etc/freetds.conf
-
-# Oracle
-export ORACLE_HOME=/opt/oracle/instantclient_11_1
-export TNS_ADMIN=$ORACLE_HOME
-export LD_LIBRARY_PATH=$ORACLE_HOME
-export DYLD_LIBRARY_PATH=$ORACLE_HOME
-export PATH=$PATH:$ORACLE_HOME
