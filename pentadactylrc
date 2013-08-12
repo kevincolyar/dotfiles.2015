@@ -24,7 +24,7 @@ set hintkeys=asdfjkl
 
 set hlfind
 
-set defsearch=startpage
+set defsearch=duckduckgo
 
 " Maps
 map <Leader> ,
