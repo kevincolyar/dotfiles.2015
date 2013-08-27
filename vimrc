@@ -49,6 +49,9 @@ Bundle 'dogrover/vim-pentadactyl'
 " Bundle 'Valloric/YouCompleteMe'
 Bundle "majutsushi/tagbar"
 
+" iTerm2+tmux
+Bundle "sjl/vitality.vim"
+
 " Dash
 Bundle 'rizzatti/funcoo.vim'
 Bundle 'rizzatti/dash.vim'
@@ -380,6 +383,9 @@ autocmd BufEnter *.git/COMMIT_EDITMSG exe BufEnterCommit()
 " This also fixes autocompletion slowness in large projects.
 autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
 autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
+
+" Tagbar
+autocmd VimEnter * nested :call tagbar#autoopen(1)
 
 " Arduino
 autocmd BufNewFile,BufRead *.pde set filetype=arduino
