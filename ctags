@@ -11,6 +11,7 @@
 --exclude=*.min.js
 --exclude=jquery.*.js
 --exclude=jquery-*.js
+--exclude=.hg
 --exclude=application.js
 --exclude=.ropeproject
 --exclude=libs
