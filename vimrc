@@ -14,13 +14,12 @@ Bundle 'tpope/vim-git'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-endwise'
-" Bundle 'tpope/vim-ragtag'
+Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-cucumber'
 Bundle 'tpope/vim-repeat'
 Bundle 'msanders/cocoa.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
-" Bundle 'Lokaltog/vim-powerline'
 Bundle 'bling/vim-airline'
 Bundle 'kien/ctrlp.vim'
 " Bundle 'vim-scripts/taglist.vim'
@@ -48,6 +47,7 @@ Bundle "claco/jasmine.vim"
 Bundle 'dogrover/vim-pentadactyl'
 " Bundle 'Valloric/YouCompleteMe'
 Bundle "majutsushi/tagbar"
+Bundle "ervandew/supertab"
 
 " iTerm2+tmux
 Bundle "sjl/vitality.vim"
@@ -66,9 +66,6 @@ Bundle "guns/vim-clojure-static"
 
 " R
 Bundle "vim-scripts/Vim-R-plugin"
-
-" Hardmode
-Bundle "wikitopian/hardmode"
 
 filetype plugin indent on      " Load ftplugins and indent files
 syntax on                      " Turn on syntax highlighting
@@ -205,6 +202,8 @@ let g:syntastic_mode_map={ 'mode': 'active',
                      \ 'active_filetypes': [],
                      \ 'passive_filetypes': ['html'] }
 
+autocmd BufNewFile,BufRead */ruby_motion_iphone/* let g:syntastic_ruby_exec = "/Library/RubyMotion/bin/ruby" 
+
 " Powerline
 " let g:Powerline_symbols = 'fancy'
 
@@ -337,9 +336,6 @@ map <leader>rs :VimuxInterruptRunner<CR>
 " Indent file
 map <leader>i gg=G
 
-" Hardmode
-nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
-
 " Sudo Save
 cmap w!! %!sudo tee > /dev/null %
 
@@ -430,10 +426,6 @@ autocmd BufNewFile,BufRead *.clj map <leader>f :%Eval<cr>
 
 " Journal
 autocmd BufNewFile,BufRead journal.md nmap <leader>c :call CleanJournal()<cr>
-
-" Hardmode
-autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
-autocmd FileType * if match("(gitcommit)|(nerdtree)|(qf)", &ft) | silent! call EasyMode() | endif
 
 " Ruby completion
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
