@@ -132,6 +132,8 @@ set wildignore+=*/tmp
 set wildignore+=*/_mount/**
 set wildignore+=node_modules
 set wildignore+=node_packages
+set wildignore+=_site
+set wildignore+=_plugins
 
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮     " Tabs and trailing space characters
 set showbreak=↪
@@ -383,6 +385,9 @@ autocmd BufEnter *.git/COMMIT_EDITMSG exe BufEnterCommit()
 " This also fixes autocompletion slowness in large projects.
 autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
 autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
+
+" Email
+autocmd FileType mail setlocal textwidth=0 wrap
 
 " Tagbar
 autocmd VimEnter * nested :call tagbar#autoopen(1)
