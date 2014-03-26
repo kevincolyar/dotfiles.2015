@@ -1,3 +1,4 @@
 set guioptions+=mTB
 set go+=b
+set defsearch=google
 javascript liberator.beep = function() { return false; }

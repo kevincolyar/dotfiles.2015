@@ -1,0 +1,14 @@
+KeepAlive yes
+ServerAliveInterval 60
+
+# Multiplexed Connections
+Host * !home.kevin.colyar.net !imac
+  ControlMaster auto
+  ControlPath /tmp/%r@%h:%p
+  ControlPersist yes
+
+Host *
+  SendEnv LC_*
+
+  # Tunnel ssh through local tor
+  # ProxyCommand connect -S localhost:9050 %h %p

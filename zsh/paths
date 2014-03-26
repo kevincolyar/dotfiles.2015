@@ -8,7 +8,12 @@ export GIT_EDITOR="vim"
 export PATH="$HOME/bin:$HOME/bin/ssh:$HOME/bin/rsync:$HOME/bin/mount:$PATH"
 
 # Homebrew Python
-export PATH=/usr/local/share/python:$PATH
+# export PATH=/usr/local/share/python:$PATH
+
+# Oracle
+#export ORACLE_HOME=~/Library/Oracle/instantclient_11_2
+#export DYLD_LIBRARY_PATH=$ORACLE_HOME
+#export PATH=$PATH:$ORACLE_HOME
 
 # NPM
 export PATH=node_modules/.bin:$PATH
