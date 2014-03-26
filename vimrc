@@ -136,6 +136,8 @@ set wildignore+=node_modules
 set wildignore+=node_packages
 set wildignore+=out
 set wildignore+=target
+set wildignore+=_site
+set wildignore+=_plugins
 
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮     " Tabs and trailing space characters
 set showbreak=↪
@@ -211,7 +213,8 @@ let g:syntastic_mode_map={ 'mode': 'active',
                      \ 'active_filetypes': [],
                      \ 'passive_filetypes': ['html', 'eruby'] }
 
-autocmd BufNewFile,BufRead */ruby_motion_iphone/* let g:syntastic_ruby_exec = "/Library/RubyMotion/bin/ruby"
+autocmd BufNewFile,BufRead */ruby_motion_iphone/* let g:syntastic_ruby_exec = "/Library/RubyMotion/bin/ruby" 
+autocmd BufNewFile,BufRead */scenes/* let g:syntastic_ruby_exec = "/Library/RubyMotion/bin/ruby" 
 
 " Powerline
 " let g:Powerline_symbols = 'fancy'
@@ -219,6 +222,14 @@ autocmd BufNewFile,BufRead */ruby_motion_iphone/* let g:syntastic_ruby_exec = "/
 " Airline
 let g:airline_powerline_fonts=1
 let g:airline_theme='dark'
+" Airline - old vim-powerline symbols
+let g:airline_left_sep = '⮀'
+let g:airline_left_alt_sep = '⮁'
+let g:airline_right_sep = '⮂'
+let g:airline_right_alt_sep = '⮃'
+let g:airline#extensions#branch#symbol = '⭠ '
+let g:airline#extensions#readonly#symbol = '⭤'
+let g:airline_linecolumn_prefix = '⭡'
 
 " CtrlP
 let g:ctrlp_map = '<leader>t'
@@ -412,6 +423,9 @@ autocmd BufEnter *.git/COMMIT_EDITMSG exe BufEnterCommit()
 " This also fixes autocompletion slowness in large projects.
 autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
 autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
+
+" Email
+autocmd FileType mail setlocal textwidth=0 wrap spell
 
 " Tagbar
 autocmd VimEnter * nested :call tagbar#autoopen(1)
