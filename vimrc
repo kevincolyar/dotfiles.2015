@@ -1,5 +1,6 @@
 set nocompatible               " Use vim features
-colorscheme Tomorrow-Night-Bright            " Color scheme
+" colorscheme Tomorrow-Night-Bright
+colorscheme molokai
 
 " - Vundle ---------------------------------------------------------- "
 
@@ -15,22 +16,20 @@ Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-endwise'
 " Bundle 'tpope/vim-ragtag'
+Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-cucumber'
 Bundle 'tpope/vim-repeat'
 Bundle 'msanders/cocoa.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
-" Bundle 'Lokaltog/vim-powerline'
 Bundle 'bling/vim-airline'
 Bundle 'kien/ctrlp.vim'
-" Bundle 'vim-scripts/taglist.vim'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'pangloss/vim-javascript'
 Bundle 'mattn/gist-vim'
 Bundle 'xenoterracide/css.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'nelstrom/vim-markdown-folding'
-" Bundle 'Raimondi/delimitMate'
 Bundle 'edsono/vim-matchit'
 Bundle 'vim-scripts/AutoTag'
 Bundle 'vim-scripts/IndexedSearch'
@@ -46,8 +45,6 @@ Bundle "airblade/vim-gitgutter"
 Bundle "nono/vim-handlebars"
 Bundle "claco/jasmine.vim"
 Bundle 'dogrover/vim-pentadactyl'
-" Bundle 'Valloric/YouCompleteMe'
-Bundle "majutsushi/tagbar"
 
 " iTerm2+tmux
 Bundle "sjl/vitality.vim"
@@ -61,14 +58,17 @@ Bundle "SirVer/ultisnips"
 
 " Clojure
 Bundle "tpope/vim-fireplace"
+Bundle "guns/vim-clojure-highlight"
 Bundle "tpope/vim-classpath"
 Bundle "guns/vim-clojure-static"
+" Bundle "paredit.vim"
+Bundle "kien/rainbow_parentheses.vim"
 
 " R
 Bundle "vim-scripts/Vim-R-plugin"
 
 " Hardmode
-Bundle "wikitopian/hardmode"
+" Bundle "wikitopian/hardmode"
 
 filetype plugin indent on      " Load ftplugins and indent files
 syntax on                      " Turn on syntax highlighting
@@ -132,6 +132,8 @@ set wildignore+=*/tmp
 set wildignore+=*/_mount/**
 set wildignore+=node_modules
 set wildignore+=node_packages
+set wildignore+=out
+set wildignore+=target/*
 
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮     " Tabs and trailing space characters
 set showbreak=↪
@@ -198,7 +200,7 @@ let localvimrc_ask=0
 " Syntastic
 
 let g:syntastic_enable_signs=1
-let g:syntastic_javascript_checkers = ['jsl']
+let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_mode_map={ 'mode': 'active',
                      \ 'active_filetypes': [],
                      \ 'passive_filetypes': ['html'] }
@@ -209,6 +211,14 @@ let g:syntastic_mode_map={ 'mode': 'active',
 " Airline
 let g:airline_powerline_fonts=1
 let g:airline_theme='dark'
+" Airline - old vim-powerline symbols
+let g:airline_left_sep = '⮀'
+let g:airline_left_alt_sep = '⮁'
+let g:airline_right_sep = '⮂'
+let g:airline_right_alt_sep = '⮃'
+let g:airline#extensions#branch#symbol = '⭠ '
+let g:airline#extensions#readonly#symbol = '⭤'
+let g:airline_linecolumn_prefix = '⭡'
 
 " CtrlP
 let g:ctrlp_map = '<leader>t'
@@ -237,13 +247,25 @@ let g:gist_open_browser_after_post = 1
 let g:dbext_default_profile_myconnection='type=ODBC:user=:passwd=:dsnname=:dbname='
 let g:dbext_default_profile = 'myconnection'
 
-" VimClojure
-let vimclojure#FuzzyIndent=1
-let vimclojure#HighlightBuiltins=1
-let vimclojure#HighlightContrib=1
-let vimclojure#DynamicHighlighting=1
-let vimclojure#ParenRainbow=1
-" let vimclojure#WantNailgun=1
+"Rainbow Parens
+let g:rbpt_colorpairs = [
+    \ ['red',         'firebrick3'],
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ]
+
 let tlist_clojure_settings = 'lisp;f:function'
 
 " - Maps ----------------------------------------------------------------- "
@@ -287,9 +309,6 @@ nmap <leader>l :set list!<CR>
 " Toggle NERDTree
 nmap <silent> <leader>o :NERDTreeToggle<CR>
 "
-" Toggle Tagbar
-nmap <silent> <leader>p :TagbarToggle<CR>
-
 " bind control-l to hashrocket
 imap <C-l> <Space>=><Space>
 
@@ -333,7 +352,7 @@ map <leader>rx :VimuxClosePanes<CR>
 map <leader>rs :VimuxInterruptRunner<CR>
 
 " Indent file
-map <leader>i gg=G
+map <leader>i mzgg=G'z
 
 " Hardmode
 nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
@@ -384,9 +403,6 @@ autocmd BufEnter *.git/COMMIT_EDITMSG exe BufEnterCommit()
 autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
 autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
 
-" Tagbar
-autocmd VimEnter * nested :call tagbar#autoopen(1)
-
 " Arduino
 autocmd BufNewFile,BufRead *.pde set filetype=arduino
 
@@ -421,7 +437,11 @@ autocmd BufNewFile,BufRead *.idea nmap <leader>done r✓
 autocmd BufNewFile,BufRead *.idea nmap <leader>new o☐
 
 " Clojure
-autocmd BufNewFile,BufRead *.clj map <leader>f :%Eval<cr>
+autocmd BufNewFile,BufRead *.clj,*.cljs set filetype=clojure
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
 " Journal
 autocmd BufNewFile,BufRead journal.md nmap <leader>c :call CleanJournal()<cr>

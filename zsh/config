@@ -8,6 +8,7 @@ export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;33'
 
 export AUTOFEATURE='true'
+export PAGER='most'
 
 fpath=(~/.zsh/functions $fpath)
 
