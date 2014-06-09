@@ -14,6 +14,7 @@ export PATH="$HOME/bin:$HOME/bin/ssh:$HOME/bin/rsync:$HOME/bin/mount:$PATH"
 #export ORACLE_HOME=~/Library/Oracle/instantclient_11_2
 #export DYLD_LIBRARY_PATH=$ORACLE_HOME
 #export PATH=$PATH:$ORACLE_HOME
+export DIAG_ADR_ENABLED=off  # Disable creation of oradiag directory
 
 # NPM
 export PATH=node_modules/.bin:$PATH
