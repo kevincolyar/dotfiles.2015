@@ -19,7 +19,7 @@ set followhints=1
 set showtabline=multitab
 set showstatuslinks=command
 
-set guioptions+=rbms
+set guioptions+=rbmsT
 set hintkeys=asdfjkl
 
 set hlfind
@@ -47,3 +47,4 @@ javascript dactyl.beep = function(){ return false; }
 
 autocmd LocationChange mail.google.com :normal! <C-z>
 autocmd LocationChange rememberthemilk.com :normal! <C-z>
+autocmd LocationChange webconsole.linode.com :normal! <C-z>

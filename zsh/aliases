@@ -40,7 +40,8 @@ alias curl='noglob curl'
 alias git='noglob git'
 
 # Force Tmux into utf mode
-alias t='tmux -u'
+#alias t='tmux -u'
+alias tmux='tmux -u'
 
 # Syntax highlighting for cat and less
 alias pcat=pygmentize
@@ -49,5 +50,5 @@ function pless() {
 }
 
 alias vi='vim'
-alias gitx="/Applications/GitX.app/Contents/MacOS/GitX"
+alias gitx="/opt/homebrew-cask/Caskroom/gitx/latest/GitX.app/Contents/MacOS/GitX"
 alias truecrypt='/Applications/TrueCrypt.app/Contents/MacOS/Truecrypt --text'

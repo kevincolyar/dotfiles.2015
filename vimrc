@@ -1,12 +1,14 @@
-set nocompatible               " Use vim features
-colorscheme Tomorrow-Night-Bright            " Color scheme
+set nocompatible                             " Use vim features
+" colorscheme Tomorrow-Night-Bright            " Color scheme
+colorscheme molokai
 
-" - Vundle ---------------------------------------------------------- "
+" Vundle {{{
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
+Bundle 'tpope/vim-sensible'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-rake'
@@ -17,60 +19,71 @@ Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-cucumber'
 Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-dispatch'
+Bundle 'tpope/timl'
 Bundle 'msanders/cocoa.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'bling/vim-airline'
 Bundle 'kien/ctrlp.vim'
-" Bundle 'vim-scripts/taglist.vim'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'pangloss/vim-javascript'
 Bundle 'mattn/gist-vim'
 Bundle 'xenoterracide/css.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'nelstrom/vim-markdown-folding'
-" Bundle 'Raimondi/delimitMate'
 Bundle 'edsono/vim-matchit'
 Bundle 'vim-scripts/AutoTag'
-Bundle 'vim-scripts/IndexedSearch'
-Bundle 'vim-scripts/tComment'
-Bundle "vim-scripts/applescript.vim"
+Bundle 'tomtom/tComment_vim'
+Bundle 'vim-scripts/applescript.vim'
 Bundle 'derekwyatt/vim-fswitch'
 Bundle 'godlygeek/tabular'
 Bundle 'gregsexton/MatchTag'
-Bundle 'ecomba/vim-ruby-refactoring'
 Bundle 'benmills/vimux'
-Bundle "mattn/zencoding-vim"
-Bundle "airblade/vim-gitgutter"
+Bundle "mattn/emmet-vim"
+Bundle 'airblade/vim-gitgutter'
 Bundle "nono/vim-handlebars"
-Bundle "claco/jasmine.vim"
 Bundle 'dogrover/vim-pentadactyl'
-" Bundle 'Valloric/YouCompleteMe'
-Bundle "majutsushi/tagbar"
-Bundle "ervandew/supertab"
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'thoughtbot/vim-rspec'
+
+" Evaluating
+" Bundle 'majutsushi/tagbar'
+" Bundle 'claco/jasmine.vim'
+" Bundle 'vim-scripts/IndexedSearch'
+" Bundle 'ecomba/vim-ruby-refactoring'
+
+" HTML
+Bundle "othree/html5.vim"
 
 " iTerm2+tmux
 Bundle "sjl/vitality.vim"
 
 " Dash
-Bundle 'rizzatti/funcoo.vim'
-Bundle 'rizzatti/dash.vim'
+" Bundle 'rizzatti/funcoo.vim'
+" Bundle 'rizzatti/dash.vim'
 
 " Snippets
 Bundle "SirVer/ultisnips"
+Bundle 'honza/vim-snippets'
 
 " Clojure
 Bundle "tpope/vim-fireplace"
+Bundle "tpope/vim-leiningen"
+" Bundle "guns/vim-clojure-highlight"
 Bundle "tpope/vim-classpath"
-Bundle "guns/vim-clojure-static"
+" Bundle "guns/vim-clojure-static"
+" Bundle "paredit.vim"
+Bundle "kien/rainbow_parentheses.vim"
 
 " R
 Bundle "vim-scripts/Vim-R-plugin"
+" }}}
 
 filetype plugin indent on      " Load ftplugins and indent files
 syntax on                      " Turn on syntax highlighting
 
-" - Settings ---------------------------------------------------------- "
+" Settings {{{
 
 set shell=/bin/sh               " Ensure vim always runs from a shell, rvm needs this.
 set lazyredraw                  " Do not redraw while running macros (much faster) (LazyRedraw)
@@ -86,13 +99,13 @@ set showcmd     		" Show incomplete cmds down the bottom
 set showmode    		" Show current mode down the bottom
 
 set incsearch   		" Find the next match as we type the search
-set hlsearch    		" Hilight searches by default
+set hlsearch    		" Highlight searches by default
+" set nohlsearch  	  	" Turn off highlighting when done searching
 
 set nowrap      		" Dont wrap lines
 set linebreak   		" Wrap lines at convenient points
 
 set ignorecase  		" Ignore case in searches
-" set nohlsearch  	  	" Turn off highlighting when done searching
 
 set complete=.,w,b,u,t            " Omnicomplete
 set completeopt=longest,menuone,preview
@@ -129,6 +142,8 @@ set wildignore+=*/tmp
 set wildignore+=*/_mount/**
 set wildignore+=node_modules
 set wildignore+=node_packages
+set wildignore+=out
+set wildignore+=target
 set wildignore+=_site
 set wildignore+=_plugins
 
@@ -173,6 +188,12 @@ if has('persistent_undo')
   set undolevels=1000
 endif
 
+set nojoinspaces
+
+" enable folder specific vimrc
+set exrc
+set secure
+
 " Trailing whitespace
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
@@ -186,7 +207,9 @@ highlight SignColumn ctermbg=black
 highlight SyntasticErrorSign ctermfg=red
 highlight SyntasticErrorLine ctermfg=red
 
-" - Variables ------------------------------------------------------------- "
+" }}}
+
+" Variables {{{
 
 let mapleader = ";"
 let maplocalleader = ";"
@@ -200,7 +223,7 @@ let g:syntastic_enable_signs=1
 let g:syntastic_javascript_checkers = ['jsl']
 let g:syntastic_mode_map={ 'mode': 'active',
                      \ 'active_filetypes': [],
-                     \ 'passive_filetypes': ['html'] }
+                     \ 'passive_filetypes': ['html', 'eruby'] }
 
 autocmd BufNewFile,BufRead */ruby_motion_iphone/* let g:syntastic_ruby_exec = "/Library/RubyMotion/bin/ruby" 
 autocmd BufNewFile,BufRead */scenes/* let g:syntastic_ruby_exec = "/Library/RubyMotion/bin/ruby" 
@@ -228,7 +251,7 @@ let g:ctrlp_max_depth = 20
 " let g:ctrlp_user_command =  "find %s '(' -type f -or -type l ')' -maxdepth " . g:ctrlp_max_depth . " -not -path '*/\.*/*' | egrep -v '\.(swp|swo|log|gitkeep|keepme|so|o)$'" . " | egrep -v '.*(build|log|doc|vendor|public\/__assets|tmp\/cache)\/.*'"
 
 " let ctrlp open up in that initial window, but future ones (which are really thin sidebars) will still jump out.
-let g:ctrlp_dont_split = 'NERD_tree_2'
+let g:ctrlp_dont_split = 'NERD_tree_1'
 
 " NerdTree
 let g:NERDTreeWinSize=40
@@ -240,23 +263,38 @@ let g:NERDTreeMapHelp=''
 " Gist
 let g:gist_open_browser_after_post = 1
 
-" Taglist
-" let Tlist_Ctags_Cmd = "ctags"
-
 " dbext
 let g:dbext_default_profile_myconnection='type=ODBC:user=:passwd=:dsnname=:dbname='
 let g:dbext_default_profile = 'myconnection'
 
-" VimClojure
-let vimclojure#FuzzyIndent=1
-let vimclojure#HighlightBuiltins=1
-let vimclojure#HighlightContrib=1
-let vimclojure#DynamicHighlighting=1
-let vimclojure#ParenRainbow=1
-" let vimclojure#WantNailgun=1
 let tlist_clojure_settings = 'lisp;f:function'
 
-" - Maps ----------------------------------------------------------------- "
+let g:clojure_fuzzy_indent = 1
+let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let', 'dom/div']
+let g:clojure_align_multiline_strings = 1
+
+"Rainbow Parens
+let g:rbpt_colorpairs = [
+    \ ['red',         'firebrick3'],
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ]
+
+" }}}
+
+" Maps {{{
 
 " Make Y behave like other capitals
 map Y y$
@@ -266,9 +304,10 @@ nmap <silent><cr> :se invhlsearch<CR>
 
 map <silent><leader>q :q<CR>
 map <silent><leader>s :split<CR>
-map <silent><leader>vs :vsplist<CR>
-nnoremap <silent> <C-S> :if expand("%") == ""<CR>browse confirm w<CR>else<CR>confirm w<CR>endif<CR>
-imap <c-s> <esc><c-s>a
+map <silent><leader>vs :vsplit<CR>
+" nnoremap <silent> <C-S> :if expand("%") == ""<CR>browse confirm w<CR>else<CR>confirm w<CR>endif<CR>
+map <silent><c-s> :w<cr>
+" imap <c-s> <esc><c-s>a
 
 " Fix regexes
 nnoremap / /\v
@@ -296,9 +335,9 @@ nmap <leader>l :set list!<CR>
 
 " Toggle NERDTree
 nmap <silent> <leader>o :NERDTreeToggle<CR>
-"
+
 " Toggle Tagbar
-nmap <silent> <leader>p :TagbarToggle<CR>
+" nmap <silent> <leader>p :TagbarToggle<CR>
 
 " bind control-l to hashrocket
 imap <C-l> <Space>=><Space>
@@ -319,8 +358,8 @@ map <leader>n :call RenameFile()<cr>
 " Settings are in ~/.ctags
 map <leader>r :silent! !ctags -R > /dev/null 2>&1 &<cr>:redraw!<cr>
 
-" Dash
-nmap <silent> <leader>d <Plug>DashSearch
+" Dispatch
+nnoremap <silent> <leader>d :Dispatch<cr>
 
 " Vimux
 
@@ -343,20 +382,28 @@ map <leader>rx :VimuxClosePanes<CR>
 map <leader>rs :VimuxInterruptRunner<CR>
 
 " Indent file
-map <leader>i gg=G
+map <leader>i mzgg=G'z
 
 " Sudo Save
 cmap w!! %!sudo tee > /dev/null %
 
-" - Abbreviations ---------------------------------------------------- "
-cnoreabbrev ack Ack
+" }}}
 
-" - Auto Commands ---------------------------------------------------- "
+" Abbreviations {{{
+cnoreabbrev ack Ack
+" }}}
+
+" Auto Commands {{{
 autocmd FileType text setlocal textwidth=78
 
 " Resize splits when the window is resized
 au VimResized * :wincmd =
 
+" Dispatch, vim-rspec
+autocmd FileType cucumber let b:dispatch = 'cucumber %'
+autocmd FileType cucumber let g:rspec_command = "Dispatch cucumber {spec}"
+autocmd FileType rspec let b:dispatch = 'rspec -c %'
+autocmd FileType rspec let g:rspec_command = "Dispatch rspec {spec}"
 
 " Ruby
 au! FileType ruby nmap <leader>p iputs "
@@ -395,7 +442,7 @@ autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:las
 autocmd FileType mail setlocal textwidth=0 wrap spell
 
 " Tagbar
-autocmd VimEnter * nested :call tagbar#autoopen(1)
+" autocmd VimEnter * nested :call tagbar#autoopen(1)
 
 " Arduino
 autocmd BufNewFile,BufRead *.pde set filetype=arduino
@@ -407,14 +454,15 @@ autocmd BufNewFile,BufRead *.m set filetype=objc
 autocmd BufNewFile,BufRead *.xaml,*.bmml set filetype=xml
 
 " Clojure
-autocmd BufNewFile,BufRead *.clj,*.cljs set filetype=clojure
-autocmd! FileType *clojure let b:loaded_delimitMate=1
-autocmd FileType * if &ft == "vimclojure.clojure" | imap <c-k> <Plug>ClojureReplUpHistory.| endif
-autocmd FileType * if &ft == "vimclojure.clojure" | imap <c-j> <Plug>ClojureReplDownHistory.| endif
+autocmd BufNewFile,BufRead *.clj,*.cljs,*.cljx set filetype=clojure
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
 " Rspec/Cucumber
-autocmd BufNewFile,BufRead *.feature,*_spec.rb,*_spec.js map <leader>e :call RunCurrentLineTestTest()<cr>
-autocmd BufNewFile,BufRead *.feature,*_spec.rb,*_spec.js map <leader>f :call RunCurrentTest()<cr>
+autocmd BufNewFile,BufRead *.feature,*_spec.rb,*_spec.js map <leader>e :call RunNearestSpec()<cr>
+autocmd BufNewFile,BufRead *.feature,*_spec.rb,*_spec.js map <leader>f :call RunCurrentSpecFile()<cr>
 
 " eRuby Javascript
 autocmd BufNewFile,BufRead *.js.erb set filetype=javascript
@@ -442,42 +490,9 @@ autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
-" - Functions ------------------------------------------------------- "
+" }}}
 
-function! RunCurrentTest()
-  execute CorrectCommandExecutor() . CorrectTestRunner() " " expand('%:p') . "\")"
-endfunction
-
-function! RunCurrentLineTestTest()
-  execute CorrectCommandExecutor() . CorrectTestRunner() " " expand('%:p') . ":" . line(".") . "\")"
-endfunction
-
-function! RunNormalCommand(cmd)
-  return "! " . cmd
-endfunction
-
-function! CorrectCommandExecutor()
-  if &term == "screen-256color"
-    return "call VimuxRunCommand(\" "
-  endif
-  return "RunNormalCommand(\" "
-endfunction
-
-function! CorrectTestRunner()
-  if match(expand("%"), "\.feature$") != -1
-    return "cucumber"
-  elseif match(expand("%:p"), "dms") != -1
-    return "spec -c"
-  elseif match(expand("%"), "keymando.*unit.*_spec\.rb$") != -1
-    return "keymando/spec/unit/vim_rspec -c"
-  elseif match(expand("%"), "keymando.*integration.*_spec\.rb$") != -1
-    return "keymando/spec/integration/vim_rspec -c"
-  elseif match(expand("%"), "_spec\.rb$") != -1
-    return "rspec -c"
-  elseif match(expand("%"), "_spec\.js$") != -1
-    return "jasmine-headless-webkit -c"
-  endif
-endfunction
+" Functions {{{
 
 function! RenameFile()
   let old_name = expand('%')
@@ -500,3 +515,7 @@ function! BufEnterCommit()
     start
   end
 endfunction
+
+" }}}
+
+" vim:foldmethod=marker:foldlevel=0
