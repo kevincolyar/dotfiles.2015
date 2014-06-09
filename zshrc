@@ -1,6 +1,6 @@
 . ~/.zsh/oh-my-zsh
-. ~/.zsh/config
 . ~/.zsh/aliases
+. ~/.zsh/config
 . ~/.zsh/completion
 . ~/.zsh/paths
 . ~/.zsh/rvm
