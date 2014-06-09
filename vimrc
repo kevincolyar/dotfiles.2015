@@ -1,6 +1,4 @@
 set nocompatible                             " Use vim features
-" colorscheme Tomorrow-Night-Bright            " Color scheme
-colorscheme molokai
 
 " Vundle {{{
 
@@ -46,6 +44,7 @@ Bundle "nono/vim-handlebars"
 Bundle 'dogrover/vim-pentadactyl'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'thoughtbot/vim-rspec'
+Bundle 'nanotech/jellybeans.vim'
 
 " Evaluating
 " Bundle 'majutsushi/tagbar'
@@ -72,7 +71,7 @@ Bundle "tpope/vim-fireplace"
 Bundle "tpope/vim-leiningen"
 " Bundle "guns/vim-clojure-highlight"
 Bundle "tpope/vim-classpath"
-" Bundle "guns/vim-clojure-static"
+Bundle "guns/vim-clojure-static"
 " Bundle "paredit.vim"
 Bundle "kien/rainbow_parentheses.vim"
 
@@ -82,6 +81,7 @@ Bundle "vim-scripts/Vim-R-plugin"
 
 filetype plugin indent on      " Load ftplugins and indent files
 syntax on                      " Turn on syntax highlighting
+colorscheme jellybeans
 
 " Settings {{{
 
