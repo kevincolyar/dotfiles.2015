@@ -38,6 +38,8 @@ alias %=' '
 # Globbing issues
 alias curl='noglob curl'
 alias git='noglob git'
+alias rake='noglob rake'
+alias cap='noglob cap'
 
 # Force Tmux into utf mode
 alias t='tmux -u'

@@ -1,6 +1,4 @@
 set nocompatible               " Use vim features
-" colorscheme Tomorrow-Night-Bright
-colorscheme molokai
 
 " - Vundle ---------------------------------------------------------- "
 
@@ -8,6 +6,7 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
+Bundle 'tpope/vim-sensible'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-rake'
@@ -15,10 +14,11 @@ Bundle 'tpope/vim-git'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-endwise'
-" Bundle 'tpope/vim-ragtag'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-cucumber'
 Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-dispatch'
+Bundle 'tpope/timl'
 Bundle 'msanders/cocoa.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
@@ -32,33 +32,32 @@ Bundle 'mileszs/ack.vim'
 Bundle 'nelstrom/vim-markdown-folding'
 Bundle 'edsono/vim-matchit'
 Bundle 'vim-scripts/AutoTag'
-Bundle 'vim-scripts/IndexedSearch'
-Bundle 'vim-scripts/tComment'
-Bundle "vim-scripts/applescript.vim"
+Bundle 'tomtom/tComment_vim'
+Bundle 'vim-scripts/applescript.vim'
 Bundle 'derekwyatt/vim-fswitch'
 Bundle 'godlygeek/tabular'
 Bundle 'gregsexton/MatchTag'
-Bundle 'ecomba/vim-ruby-refactoring'
 Bundle 'benmills/vimux'
-Bundle "mattn/zencoding-vim"
-Bundle "airblade/vim-gitgutter"
+Bundle "mattn/emmet-vim"
+Bundle 'airblade/vim-gitgutter'
 Bundle "nono/vim-handlebars"
-Bundle "claco/jasmine.vim"
 Bundle 'dogrover/vim-pentadactyl'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'thoughtbot/vim-rspec'
+Bundle 'nanotech/jellybeans.vim'
+
 
 " iTerm2+tmux
 Bundle "sjl/vitality.vim"
 
-" Dash
-Bundle 'rizzatti/funcoo.vim'
-Bundle 'rizzatti/dash.vim'
-
 " Snippets
 Bundle "SirVer/ultisnips"
+Bundle 'honza/vim-snippets'
 
 " Clojure
 Bundle "tpope/vim-fireplace"
-Bundle "guns/vim-clojure-highlight"
+Bundle "tpope/vim-leiningen"
+" Bundle "guns/vim-clojure-highlight"
 Bundle "tpope/vim-classpath"
 Bundle "guns/vim-clojure-static"
 " Bundle "paredit.vim"
@@ -67,11 +66,9 @@ Bundle "kien/rainbow_parentheses.vim"
 " R
 Bundle "vim-scripts/Vim-R-plugin"
 
-" Hardmode
-" Bundle "wikitopian/hardmode"
-
 filetype plugin indent on      " Load ftplugins and indent files
 syntax on                      " Turn on syntax highlighting
+colorscheme jellybeans
 
 " - Settings ---------------------------------------------------------- "
 
@@ -133,7 +130,7 @@ set wildignore+=*/_mount/**
 set wildignore+=node_modules
 set wildignore+=node_packages
 set wildignore+=out
-set wildignore+=target/*
+set wildignore+=target
 
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮     " Tabs and trailing space characters
 set showbreak=↪
