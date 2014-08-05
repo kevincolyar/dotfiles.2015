@@ -379,6 +379,11 @@ cmap w!! %!sudo tee > /dev/null %
 
 " Abbreviations {{{
 cnoreabbrev ack Ack
+
+iab <expr> ddate strftime("%c")
+iab <expr> ttime strftime("%H:%M")
+iab <expr> ptime strftime("%l:%M %p")
+
 " }}}
 
 " Auto Commands {{{
