@@ -62,9 +62,15 @@ function install_vim_bundles
   vim -c ":BundleClean!" -c ":BundleInstall" -c ":qa"
 }
 
+function install_fonts
+{
+  fc-cache -vf ~/.fonts
+}
+
 ignore_files='(LICENSE)|(install.sh)|(README)|(__)|(Rakefile)'
 files=`ls | egrep -v "$ignore_files"`
 
 link_dotfiles $files
+install_fonts
 install_vundle
 install_vim_bundles

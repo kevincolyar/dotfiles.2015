@@ -34,6 +34,9 @@ nmap -builtin <bs> <nop>
 nmap -builtin j 3j
 nmap -builtin k 3k
 
+nmap <c-h> :tabprev<cr>
+nmap <c-l> :tabnext<cr>
+
 javascript dactyl.beep = function(){ return false; }
 
 " Gmail
