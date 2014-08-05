@@ -50,7 +50,7 @@ chflags nohidden ~/Library
 
 progs="
 git
-vim
+macvim
 tig
 ctags
 markdown
@@ -59,10 +59,40 @@ reattach-to-user-namespace
 rsync
 sshfs
 tmux
-zsh"
+zsh
+terminal-notifier
+boot2docker
+"
 
 brew install $progs
 
+cask_apps="
+gitx
+google-chrome
+gqrx
+virtualbox
+cord
+vlc
+handbrake
+flux
+balsamiq-mockups
+bittorrent-sync
+cyberduck
+daisyduck
+dropbox
+freemind
+keepassx
+musicbrainz-picard
+rdio
+skitch
+skype
+wiretap-studio
+ynab
+superduper
+key-codes
+"
+
+brew cask install $cask_apps
 
 # Kill affected applications
 for app in Safari Finder Dock Mail SystemUIServer; do killall "$app" > /dev/null 2>&1; done

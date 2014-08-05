@@ -2,7 +2,7 @@ KeepAlive yes
 ServerAliveInterval 60
 
 # Multiplexed Connections
-Host * !home.kevin.colyar.net !imac
+Host * !home.kevin.colyar.net !imac !sftp.gcpud.org
   ControlMaster auto
   ControlPath /tmp/%r@%h:%p
   ControlPersist yes

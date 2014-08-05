@@ -24,7 +24,8 @@ set hintkeys=asdfjkl
 
 set hlfind
 
-set defsearch=duckduckgo
+" set defsearch=duckduckgo
+set defsearch=google
 
 " Maps
 map <Leader> ,
@@ -48,3 +49,4 @@ javascript dactyl.beep = function(){ return false; }
 autocmd LocationChange mail.google.com :normal! <C-z>
 autocmd LocationChange rememberthemilk.com :normal! <C-z>
 autocmd LocationChange webconsole.linode.com :normal! <C-z>
+autocmd LocationChange play.typeracer.com :normal! <C-z>
