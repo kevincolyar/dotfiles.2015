@@ -1,83 +1,78 @@
 set nocompatible                             " Use vim features
+filetype off
 
 " Vundle {{{
+set rtp+=~/.vim/bundle/vundle
+call vundle#begin()
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-sensible'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-rake'
-Bundle 'tpope/vim-git'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'tpope/vim-cucumber'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-dispatch'
-Bundle 'tpope/timl'
-Bundle 'msanders/cocoa.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'bling/vim-airline'
-Bundle 'kien/ctrlp.vim'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'pangloss/vim-javascript'
-Bundle 'mattn/gist-vim'
-Bundle 'xenoterracide/css.vim'
-Bundle 'mileszs/ack.vim'
-Bundle 'nelstrom/vim-markdown-folding'
-Bundle 'edsono/vim-matchit'
-Bundle 'vim-scripts/AutoTag'
-Bundle 'tomtom/tComment_vim'
-Bundle 'vim-scripts/applescript.vim'
-Bundle 'derekwyatt/vim-fswitch'
-Bundle 'godlygeek/tabular'
-Bundle 'gregsexton/MatchTag'
-Bundle 'benmills/vimux'
-Bundle "mattn/emmet-vim"
-Bundle 'airblade/vim-gitgutter'
-Bundle "nono/vim-handlebars"
-Bundle 'dogrover/vim-pentadactyl'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'thoughtbot/vim-rspec'
-Bundle 'nanotech/jellybeans.vim'
+Plugin 'gmarik/vundle'
+Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-rake'
+Plugin 'tpope/vim-projectionist'
+Plugin 'tpope/vim-git'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-cucumber'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/timl'
+Plugin 'msanders/cocoa.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'bling/vim-airline'
+Plugin 'kien/ctrlp.vim'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mattn/gist-vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'nelstrom/vim-markdown-folding'
+Plugin 'edsono/vim-matchit'
+Plugin 'vim-scripts/AutoTag'
+Plugin 'tomtom/tComment_vim'
+Plugin 'vim-scripts/applescript.vim'
+Plugin 'derekwyatt/vim-fswitch'
+Plugin 'godlygeek/tabular'
+Plugin 'gregsexton/MatchTag'
+Plugin 'benmills/vimux'
+Plugin 'mattn/emmet-vim'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'nono/vim-handlebars'
+Plugin 'honza/dockerfile.vim'
+Plugin 'dogrover/vim-pentadactyl'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'thoughtbot/vim-rspec'
+Plugin 'nanotech/jellybeans.vim'
 
 " Evaluating
-" Bundle 'majutsushi/tagbar'
-" Bundle 'claco/jasmine.vim'
-" Bundle 'vim-scripts/IndexedSearch'
-" Bundle 'ecomba/vim-ruby-refactoring'
+" Plugin 'majutsushi/tagbar'
+" Plugin 'claco/jasmine.vim'
+" Plugin 'vim-scripts/IndexedSearch'
+" Plugin 'ecomba/vim-ruby-refactoring'
 
 " HTML
-Bundle "othree/html5.vim"
+Plugin 'othree/html5.vim'
 
 " iTerm2+tmux
-Bundle "sjl/vitality.vim"
-
-" Dash
-" Bundle 'rizzatti/funcoo.vim'
-" Bundle 'rizzatti/dash.vim'
+Plugin 'sjl/vitality.vim'
 
 " Snippets
-Bundle "SirVer/ultisnips"
-Bundle 'honza/vim-snippets'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 
 " Clojure
-Bundle "tpope/vim-fireplace"
-Bundle "tpope/vim-leiningen"
-" Bundle "guns/vim-clojure-highlight"
-Bundle "tpope/vim-classpath"
-Bundle "guns/vim-clojure-static"
-" Bundle "paredit.vim"
-Bundle "kien/rainbow_parentheses.vim"
+Plugin 'tpope/vim-fireplace'
+Plugin 'tpope/vim-leiningen'
+Plugin 'tpope/vim-classpath'
+Plugin 'guns/vim-clojure-static'
+Plugin 'kien/rainbow_parentheses.vim'
 
-" R
-Bundle "vim-scripts/Vim-R-plugin"
+call vundle#end()
 " }}}
+
 
 filetype plugin indent on      " Load ftplugins and indent files
 syntax on                      " Turn on syntax highlighting
@@ -225,9 +220,6 @@ let g:syntastic_mode_map={ 'mode': 'active',
                      \ 'active_filetypes': [],
                      \ 'passive_filetypes': ['html', 'eruby'] }
 
-autocmd BufNewFile,BufRead */ruby_motion_iphone/* let g:syntastic_ruby_exec = "/Library/RubyMotion/bin/ruby" 
-autocmd BufNewFile,BufRead */scenes/* let g:syntastic_ruby_exec = "/Library/RubyMotion/bin/ruby" 
-
 " Powerline
 " let g:Powerline_symbols = 'fancy'
 
@@ -336,9 +328,6 @@ nmap <leader>l :set list!<CR>
 " Toggle NERDTree
 nmap <silent> <leader>o :NERDTreeToggle<CR>
 
-" Toggle Tagbar
-" nmap <silent> <leader>p :TagbarToggle<CR>
-
 " bind control-l to hashrocket
 imap <C-l> <Space>=><Space>
 
@@ -364,7 +353,7 @@ nnoremap <silent> <leader>d :Dispatch<cr>
 " Vimux
 
 " Run the current file with rspec
-map <leader>rb :call VimuxRunCommand("clear; rspec " . bufname("%"))<CR>
+map <leader>rb :call VimuxRunCommand("clear; rspec -c " . bufname("%"))<CR>
 
 " Prompt for a command to run
 map <leader>rp :VimuxPromptCommand<CR>
@@ -386,7 +375,6 @@ map <leader>i mzgg=G'z
 
 " Sudo Save
 cmap w!! %!sudo tee > /dev/null %
-
 " }}}
 
 " Abbreviations {{{
@@ -400,10 +388,10 @@ autocmd FileType text setlocal textwidth=78
 au VimResized * :wincmd =
 
 " Dispatch, vim-rspec
-autocmd FileType cucumber let b:dispatch = 'cucumber %'
-autocmd FileType cucumber let g:rspec_command = "Dispatch cucumber {spec}"
-autocmd FileType rspec let b:dispatch = 'rspec -c %'
-autocmd FileType rspec let g:rspec_command = "Dispatch rspec {spec}"
+autocmd BufNewFile,BufRead *.feature let b:dispatch = 'cucumber %'
+autocmd BufNewFile,BufRead *.feature let g:rspec_command = 'Dispatch cucumber {spec}'
+autocmd BufNewFile,BufRead *_spec.rb let b:dispatch = 'rspec -c %'
+autocmd BufNewFile,BufRead *_spec.rb let g:rspec_command = 'Dispatch rspec -c {spec}'
 
 " Ruby
 au! FileType ruby nmap <leader>p iputs "
@@ -441,9 +429,6 @@ autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:las
 " Email
 autocmd FileType mail setlocal textwidth=0 wrap spell
 
-" Tagbar
-" autocmd VimEnter * nested :call tagbar#autoopen(1)
-
 " Arduino
 autocmd BufNewFile,BufRead *.pde set filetype=arduino
 
@@ -472,11 +457,6 @@ autocmd BufNewFile,BufRead *.md set filetype=markdown
 
 " Applescript
 autocmd BufNewFile,BufRead *.appl set filetype=applescript
-
-" Idea files
-autocmd BufNewFile,BufRead *.idea set filetype=markdown
-autocmd BufNewFile,BufRead *.idea nmap <leader>done r✓
-autocmd BufNewFile,BufRead *.idea nmap <leader>new o☐
 
 " Clojure
 autocmd BufNewFile,BufRead *.clj map <leader>f :%Eval<cr>
