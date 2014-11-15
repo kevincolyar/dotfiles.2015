@@ -10,6 +10,8 @@ Host * !home.kevin.colyar.net !imac !sftp.gcpud.org !localhost !is-kevinc-deb7 !
 Host *
   SendEnv LC_*
   ForwardAgent yes
+  TCPKeepAlive yes
+  ServerAliveInterval 60
 
   # Tunnel ssh through local tor
   # ProxyCommand connect -S localhost:9050 %h %p
