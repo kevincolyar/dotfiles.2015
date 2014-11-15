@@ -75,4 +75,4 @@ link_dotfiles $files
 install_vundle
 install_vim_bundles
 install_fonts
-./osx.sh
+# ./osx.sh

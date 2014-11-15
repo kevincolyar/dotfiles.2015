@@ -19,9 +19,10 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-cucumber'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/timl'
+" Plugin 'tpope/timl'
+Plugin 'tpope/vim-vinegar'
 Plugin 'msanders/cocoa.vim'
-Plugin 'scrooloose/nerdtree'
+" Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'bling/vim-airline'
 Plugin 'kien/ctrlp.vim'
@@ -60,8 +61,10 @@ Plugin 'othree/html5.vim'
 Plugin 'sjl/vitality.vim'
 
 " Snippets
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+if has("python")
+  Plugin 'SirVer/ultisnips'
+  Plugin 'honza/vim-snippets'
+endif
 
 " Clojure
 Plugin 'tpope/vim-fireplace'
@@ -106,7 +109,7 @@ set complete=.,w,b,u,t            " Omnicomplete
 set completeopt=longest,menuone,preview
 
 set tags=./tags		        " Ctags
-set grepprg=ack			" Using ack instead of grep
+" set grepprg=ack			" Using ack instead of grep
 
 set vb                          " Use visual bell instead of audible bell
 set hidden                      " Hide buffers when not displayed
@@ -141,6 +144,7 @@ set wildignore+=out
 set wildignore+=target
 set wildignore+=_site
 set wildignore+=_plugins
+set wildignore+=*.bmml
 
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮     " Tabs and trailing space characters
 set showbreak=↪
@@ -198,7 +202,7 @@ highlight clear SpellBad
 highlight SpellBad cterm=underline ctermfg=red
 
 " Gutter
-highlight SignColumn ctermbg=black
+highlight SignColumn ctermbg=233
 highlight SyntasticErrorSign ctermfg=red
 highlight SyntasticErrorLine ctermfg=red
 
@@ -243,14 +247,14 @@ let g:ctrlp_max_depth = 20
 " let g:ctrlp_user_command =  "find %s '(' -type f -or -type l ')' -maxdepth " . g:ctrlp_max_depth . " -not -path '*/\.*/*' | egrep -v '\.(swp|swo|log|gitkeep|keepme|so|o)$'" . " | egrep -v '.*(build|log|doc|vendor|public\/__assets|tmp\/cache)\/.*'"
 
 " let ctrlp open up in that initial window, but future ones (which are really thin sidebars) will still jump out.
-let g:ctrlp_dont_split = 'NERD_tree_1'
-
-" NerdTree
-let g:NERDTreeWinSize=40
-let g:NERDTreeDirArrows=1
-let g:NERDTreeMinimalUI=1
-let g:NERDTreeAutoDeleteBuffer=1
-let g:NERDTreeMapHelp=''
+" let g:ctrlp_dont_split = 'NERD_tree_1'
+"
+" " NerdTree
+" let g:NERDTreeWinSize=40
+" let g:NERDTreeDirArrows=1
+" let g:NERDTreeMinimalUI=1
+" let g:NERDTreeAutoDeleteBuffer=1
+" let g:NERDTreeMapHelp=''
 
 " Gist
 let g:gist_open_browser_after_post = 1
@@ -310,6 +314,7 @@ vnoremap / /\v
 
 " Ack with the word under cursor
 nnoremap <leader>a :Ack <C-r><C-w>
+let g:ackprg='ag --vimgrep'
 
 " Git maps
 map <leader>gs :Gstatus<CR>
@@ -326,7 +331,7 @@ nnoremap <C-l> <C-w>l
 nmap <leader>l :set list!<CR>
 
 " Toggle NERDTree
-nmap <silent> <leader>o :NERDTreeToggle<CR>
+" nmap <silent> <leader>o :NERDTreeToggle<CR>
 
 " bind control-l to hashrocket
 imap <C-l> <Space>=><Space>
@@ -372,6 +377,9 @@ map <leader>rs :VimuxInterruptRunner<CR>
 
 " Indent file
 map <leader>i mzgg=G'z
+
+" Yank all
+map <leader>y mzggyG'z
 
 " Sudo Save
 cmap w!! %!sudo tee > /dev/null %
@@ -459,6 +467,14 @@ autocmd BufNewFile,BufRead *.js.erb set filetype=javascript
 
 " Markdown
 autocmd BufNewFile,BufRead *.md set filetype=markdown
+autocmd BufNewFile,BufRead *.md set wrap
+autocmd BufNewFile,BufRead *.md set spell
+
+" Gitcommit
+autocmd FileType gitcommit set spell
+
+" QF
+autocmd FileType qf set wrap
 
 " Applescript
 autocmd BufNewFile,BufRead *.appl set filetype=applescript
@@ -468,6 +484,9 @@ autocmd BufNewFile,BufRead *.clj map <leader>f :%Eval<cr>
 
 " Journal
 autocmd BufNewFile,BufRead journal.md nmap <leader>c :call CleanJournal()<cr>
+
+" Ruby
+autocmd BufNewFile,BufRead *.md set nospell
 
 " Ruby completion
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete

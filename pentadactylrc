@@ -37,16 +37,9 @@ nmap -builtin k 3k
 
 javascript dactyl.beep = function(){ return false; }
 
-" Gmail
-" set passkeys+='https://mail\.google\.com':xsem!#rRaAvN[]{}z.IU=-gidac/?lujkonp
-
-" Google Calendar
-" set passkeys+="https://www\.google\.com/calendar":jkg12345qrcnp
-
-" Remember the Milk
-"set passkeys+="https://www\.rememberthemilk\.com/home/kevincolyar*":jkcr
-
 autocmd LocationChange mail.google.com :normal! <C-z>
+autocmd LocationChange docs.google.com :normal! <C-z>
+autocmd LocationChange calendar.google.com :normal! <C-z>
 autocmd LocationChange rememberthemilk.com :normal! <C-z>
 autocmd LocationChange webconsole.linode.com :normal! <C-z>
 autocmd LocationChange play.typeracer.com :normal! <C-z>

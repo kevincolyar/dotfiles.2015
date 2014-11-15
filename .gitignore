@@ -16,3 +16,5 @@ ssh/known_hosts
 ssh/environment-mbp
 ssh/id_boot2docker
 ssh/id_boot2docker.pub
+ssh/environment-*
+vim/spell
