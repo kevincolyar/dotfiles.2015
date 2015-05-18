@@ -7,4 +7,7 @@ fi
 . ~/.zsh/config
 . ~/.zsh/paths
 . ~/.zsh/rbenv
+. ~/.zsh/docker
 
+fpath=(/usr/local/share/zsh-completions $fpath)
+compinit

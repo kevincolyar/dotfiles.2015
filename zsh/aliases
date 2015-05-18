@@ -49,8 +49,17 @@ function pless() {
   pcat "$1" | less -R
 }
 
-alias vim='mvim -v'
-alias vi='vim'
+# alias vim='mvim -v'
+# alias vi='vim'
+alias vim='emacs'
+alias vi='emacs'
+alias ec='emacsclient'
+
 alias gitx="/opt/homebrew-cask/Caskroom/gitx/latest/GitX.app/Contents/MacOS/GitX"
 alias truecrypt='/Applications/TrueCrypt.app/Contents/MacOS/Truecrypt --text'
 alias cask="brew cask"
+
+# ZPrezto Fixes
+alias rm='nocorrect rm'
+
+alias be='bundle exec'

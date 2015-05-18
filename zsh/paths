@@ -1,10 +1,6 @@
 # Java
 # export JAVA_HOME="/Library/Java/Home"
 
-# Vim
-export EDITOR="vim"
-export GIT_EDITOR="vim"
-
 export PATH="$HOME/bin:$HOME/bin/ssh:$HOME/bin/rsync:$HOME/bin/mount:$PATH"
 
 # Homebrew Python

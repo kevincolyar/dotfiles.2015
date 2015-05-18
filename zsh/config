@@ -1,9 +1,9 @@
 # vi: ft=zsh
 
-export EDITOR='vim'
-export GIT_EDITOR='vim'
+export EDITOR='emacs'
+export GIT_EDITOR='emacs'
 
-export TERM='screen-256color'
+export TERM='xterm-256color'
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;33'
 export PAGER='most'
@@ -26,6 +26,7 @@ setopt PROMPT_SUBST
 unsetopt correct_all
 setopt COMPLETE_IN_WORD
 setopt IGNORE_EOF
+setopt rmstarsilent # Don't confirm `rm *
 
 zle -N newtab
 
