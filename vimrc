@@ -8,53 +8,51 @@ call vundle#begin()
 Plugin 'gmarik/vundle'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-rake'
 Plugin 'tpope/vim-projectionist'
 Plugin 'tpope/vim-git'
-Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-cucumber'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-dispatch'
-" Plugin 'tpope/timl'
 Plugin 'tpope/vim-vinegar'
-Plugin 'msanders/cocoa.vim'
-" Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'bling/vim-airline'
 Plugin 'kien/ctrlp.vim'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mattn/gist-vim'
 Plugin 'mileszs/ack.vim'
-Plugin 'nelstrom/vim-markdown-folding'
 Plugin 'edsono/vim-matchit'
 Plugin 'vim-scripts/AutoTag'
 Plugin 'tomtom/tComment_vim'
-Plugin 'vim-scripts/applescript.vim'
 Plugin 'derekwyatt/vim-fswitch'
 Plugin 'godlygeek/tabular'
 Plugin 'gregsexton/MatchTag'
 Plugin 'benmills/vimux'
 Plugin 'mattn/emmet-vim'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'nono/vim-handlebars'
 Plugin 'honza/dockerfile.vim'
-Plugin 'dogrover/vim-pentadactyl'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'thoughtbot/vim-rspec'
 Plugin 'nanotech/jellybeans.vim'
+Plugin 'wakatime/vim-wakatime'
 
-" Evaluating
-" Plugin 'majutsushi/tagbar'
-" Plugin 'claco/jasmine.vim'
-" Plugin 'vim-scripts/IndexedSearch'
-" Plugin 'ecomba/vim-ruby-refactoring'
+" Ruby
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-rake'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'thoughtbot/vim-rspec'
 
-" HTML
+" Clojure
+Plugin 'tpope/vim-fireplace'
+Plugin 'tpope/vim-leiningen'
+Plugin 'tpope/vim-classpath'
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'vim-scripts/paredit.vim'
+
+" Misc
+Plugin 'msanders/cocoa.vim'
+Plugin 'vim-scripts/applescript.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'tpope/vim-markdown'
+Plugin 'nelstrom/vim-markdown-folding'
 Plugin 'othree/html5.vim'
 
 " iTerm2+tmux
@@ -65,13 +63,6 @@ if has("python")
   Plugin 'SirVer/ultisnips'
   Plugin 'honza/vim-snippets'
 endif
-
-" Clojure
-Plugin 'tpope/vim-fireplace'
-Plugin 'tpope/vim-leiningen'
-Plugin 'tpope/vim-classpath'
-Plugin 'guns/vim-clojure-static'
-Plugin 'kien/rainbow_parentheses.vim'
 
 call vundle#end()
 " }}}
@@ -137,6 +128,7 @@ set wildignore+=*.orig
 set wildignore+=*/public/__assets
 set wildignore+=*/vendor/rails/**
 set wildignore+=*/tmp
+set wildignore+=*/log
 set wildignore+=*/_mount/**
 set wildignore+=node_modules
 set wildignore+=node_packages
@@ -145,6 +137,11 @@ set wildignore+=target
 set wildignore+=_site
 set wildignore+=_plugins
 set wildignore+=*.bmml
+set wildignore+=.min.js
+set wildignore+=*/public/fonts
+set wildignore+=*/vcr_cassettes/*
+set wildignore+=*/solr/data,*/solr/default,data,*/solr/development,*/solr/test,*/solr/pids
+
 
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮     " Tabs and trailing space characters
 set showbreak=↪
@@ -224,20 +221,23 @@ let g:syntastic_mode_map={ 'mode': 'active',
                      \ 'active_filetypes': [],
                      \ 'passive_filetypes': ['html', 'eruby'] }
 
-" Powerline
-" let g:Powerline_symbols = 'fancy'
+let g:syntastic_error_symbol = "✗"
+let g:syntastic_warning_symbol = "⚠"
 
 " Airline
-let g:airline_powerline_fonts=1
+" let g:airline_powerline_fonts=1
 let g:airline_theme='dark'
 " Airline - old vim-powerline symbols
-let g:airline_left_sep = '⮀'
-let g:airline_left_alt_sep = '⮁'
-let g:airline_right_sep = '⮂'
-let g:airline_right_alt_sep = '⮃'
-let g:airline#extensions#branch#symbol = '⭠ '
-let g:airline#extensions#readonly#symbol = '⭤'
-let g:airline_linecolumn_prefix = '⭡'
+" let g:airline_left_sep = '⮀'
+" let g:airline_left_alt_sep = '⮁'
+" let g:airline_right_sep = '⮂'
+" let g:airline_right_alt_sep = '⮃'
+" let g:airline#extensions#branch#symbol = '⭠ '
+" let g:airline#extensions#readonly#symbol = '⭤'
+" if !exists('g:airline_symbols')
+"   let g:airline_symbols = {}
+" endif
+" let g:airline_symbols.linenr = '⭡'
 
 " CtrlP
 let g:ctrlp_map = '<leader>t'
