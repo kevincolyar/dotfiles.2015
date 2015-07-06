@@ -60,8 +60,8 @@ Plugin 'sjl/vitality.vim'
 
 " Snippets
 if has("python")
-  Plugin 'SirVer/ultisnips'
-  Plugin 'honza/vim-snippets'
+  " vim Plugin 'SirVer/ultisnips'
+  " Plugin 'honza/vim-snippets'
 endif
 
 call vundle#end()

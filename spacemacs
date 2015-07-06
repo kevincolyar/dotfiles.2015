@@ -19,19 +19,21 @@
      auto-completion
      better-defaults
      git
+     version-control
      syntax-checking
      theme-megapack
-     ;; wakatime
+     wakatime
      osx
      markdown
      clojure
      html
      javascript
      ruby
-     shell-scripts
-     extra-langs
-     csharp
-     python
+     shell
+     restclient
+     ;; csharp
+     ;; python
+     ;; php
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -67,7 +69,8 @@ before layers configuration."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(monokai
+   dotspacemacs-themes '(material
+                         monokai
                          solarized-dark
                          leuven
                          solarized-light
@@ -143,18 +146,56 @@ before layers configuration."
    )
   ;; User initialization goes here
   (setq-default ruby-version-manager 'rbenv)
+  (setq-default ruby-enable-ruby-on-rails-support t)
+  ;; (setq git-gutter-fr:side 'left-fringe)
+  (setq clojure-enable-fancify-symbols t)
+
+  ;; Use command key as meta key in os x
+  (setq mac-option-key-is-meta nil)
+  (setq mac-command-key-is-meta t)
+  (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier nil)
   )
+
+(defun indent-buffer ()
+  (interactive)
+  (indent-region (point-min) (point-max)))
 
 (defun dotspacemacs/config ()
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
-  (setq clojure-enable-fancify-symbols t)
+
+  ;; Follow symlinks
+  (setq vc-follow-symlinks t)
 
   ;; Enable line numbers for code buffers
-  ;; (add-hook 'prog-mode-hook #'linum-mode)
-  (setq linum-format "%4d ")
-  ;; (global-wakatime-mode)
+  (add-hook 'prog-mode-hook 'linum-mode)
+
+  ;; Projectile
+  (setq projectile-enable-caching nil)
+
+  ;; Add a space to the left
+  (setq linum-format "%1d ")
+
+  ;; Wakatime setup
+  (setq wakatime-python-bin "/usr/local/bin/python")
+  (setq projectile-tags-command "/usr/local/bin/ctags -Re -f %s %s")
+
+  ;; Fix backgrounding of emacs process
+  (define-key evil-normal-state-map "\C-z" 'suspend-emacs)
+
+  ;; Ruby key maps
+  (evil-define-key 'insert enh-ruby-mode-map "\C-l" (kbd " => "))
+  (add-hook
+   'enh-ruby-mode-hook
+   '(lambda ()
+      (setq enh-ruby-deep-indent-paren nil
+            evil-shift-width 2)))
+
+  ;; Custom Spacemacs keys
+  (evil-leader/set-key "ot" 'align-regexp)
+  (evil-leader/set-key "oi" 'indent-buffer)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -169,6 +210,11 @@ layers configuration."
  '(ahs-idle-interval 0.25)
  '(ahs-idle-timer 0 t)
  '(ahs-inhibit-face-list nil)
+ '(ansi-color-faces-vector
+   [default bold shadow italic underline bold bold-italic bold])
+ '(custom-safe-themes
+   (quote
+    ("33bb2c9b6e965f9c3366c57f8d08a94152954d4e2124dc621953f5a8d7e9ca41" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(ring-bell-function (quote ignore) t)
  '(wakatime-api-key "6e4496a0-d2e3-4c90-a6df-4f4eb08488cd")
  '(wakatime-cli-path "/usr/local/bin/wakatime"))

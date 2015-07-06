@@ -51,9 +51,9 @@ function pless() {
 
 # alias vim='mvim -v'
 # alias vi='vim'
-alias vim='emacs'
-alias vi='emacs'
-alias ec='emacsclient'
+# alias vim='emacs'
+# alias vi='emacs'
+# alias ec='emacsclient'
 
 alias gitx="/opt/homebrew-cask/Caskroom/gitx/latest/GitX.app/Contents/MacOS/GitX"
 alias truecrypt='/Applications/TrueCrypt.app/Contents/MacOS/Truecrypt --text'
