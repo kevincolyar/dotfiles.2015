@@ -37,13 +37,14 @@ bindkey '^[[5C' end-of-line
 bindkey '^[[3~' delete-char
 bindkey '^[^N' newtab
 bindkey '^?' backward-delete-char
+bindkey -M viins 'fd' vi-cmd-mode
 
 # History settings
 export HISTSIZE=10000
 export SAVEHIST=10000
 export HISTFILE=$HOME/.zsh_history
 export HISTIGNORE="&:ls:ll:la:l.:pwd:exit:clear:clr:[bf]g"
-export KEYTIMEOUT=1  # Fixes vi-mode esc lag
+export KEYTIMEOUT=10  # Fixes vi-mode esc lag
 setopt append_history
 setopt inc_append_history
 setopt extended_history
