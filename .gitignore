@@ -8,3 +8,6 @@ vim/backups
 *weechatlog
 *.log
 __*
+ssh/authorized_keys
+ssh/ida_rsa*
+ssh/.auth_sock

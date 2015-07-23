@@ -22,6 +22,12 @@ alias gs='git status'
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
 alias git_diff='git diff --no-ext-diff -w "$@" | vim -R -'
 
+# apt
+
+alias ai='sudo apt-get install'
+alias au='sudo apt-get update'
+alias as='sudo apt-cache search'
+
 # rails
 # alias sc='script/console'
 alias ss='script/server'
@@ -52,3 +58,5 @@ function pless() {
 
 alias vi='vim'
 alias webserver="python -m SimpleHTTPServer"
+
+alias be='bundle exec'

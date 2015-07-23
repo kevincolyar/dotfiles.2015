@@ -46,6 +46,7 @@ Plugin 'dogrover/vim-pentadactyl'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'nanotech/jellybeans.vim'
+Plugin 'wakatime/vim-wakatime'
 
 " Evaluating
 " Plugin 'majutsushi/tagbar'
@@ -82,7 +83,7 @@ colorscheme jellybeans
 
 set shell=/bin/sh               " Ensure vim always runs from a shell, rvm needs this.
 set lazyredraw                  " Do not redraw while running macros (much faster) (LazyRedraw)
-set clipboard=unnamed           " Use the OSX pasteboard
+set clipboard=unnamed           " Use the OSX pasteboard, under linux use xterm_clipboard: vim --version | grep xterm_clipboard
 set cursorline                  " Highlight line curor is on
 set number                      " Show line numbers
 set history=1000                " Lots of history
@@ -256,14 +257,14 @@ let g:NERDTreeMapHelp=''
 let g:gist_open_browser_after_post = 1
 
 " dbext
-let g:dbext_default_profile_myconnection='type=ODBC:user=:passwd=:dsnname=:dbname='
-let g:dbext_default_profile = 'myconnection'
+" let g:dbext_default_profile_myconnection='type=ODBC:user=:passwd=:dsnname=:dbname='
+" let g:dbext_default_profile = 'myconnection'
 
-let tlist_clojure_settings = 'lisp;f:function'
+" let tlist_clojure_settings = 'lisp;f:function'
 
-let g:clojure_fuzzy_indent = 1
-let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let', 'dom/div']
-let g:clojure_align_multiline_strings = 1
+" let g:clojure_fuzzy_indent = 1
+" let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let', 'dom/div']
+" let g:clojure_align_multiline_strings = 1
 
 "Rainbow Parens
 let g:rbpt_colorpairs = [
