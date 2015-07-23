@@ -19,3 +19,4 @@ ssh/id_boot2docker.pub
 ssh/environment-*
 vim/spell
 lein/repl-history
+spacemacs.private
