@@ -16,7 +16,7 @@
      ;; Example of useful layers you may want to use right away
      ;; Uncomment a layer name and press C-c C-c to install it
      ;; --------------------------------------------------------
-     auto-completion
+     ;; auto-completion
      better-defaults
      git
      version-control
@@ -193,6 +193,8 @@ layers configuration."
       (setq enh-ruby-deep-indent-paren nil
             evil-shift-width 2)))
 
+  ;; (add-hook 'clojure-mode-hook #'paredit-mode)
+
   ;; Custom Spacemacs keys
   (evil-leader/set-key "ot" 'align-regexp)
   (evil-leader/set-key "oi" 'indent-buffer)
@@ -217,7 +219,8 @@ layers configuration."
     ("33bb2c9b6e965f9c3366c57f8d08a94152954d4e2124dc621953f5a8d7e9ca41" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(ring-bell-function (quote ignore) t)
  '(wakatime-api-key "6e4496a0-d2e3-4c90-a6df-4f4eb08488cd")
- '(wakatime-cli-path "/usr/local/bin/wakatime"))
+ '(wakatime-cli-path "/usr/local/bin/wakatime")
+ '(wakatime-python-bin "/usr/local/bin/python"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
