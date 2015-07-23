@@ -198,6 +198,8 @@ layers configuration."
   ;; Custom Spacemacs keys
   (evil-leader/set-key "ot" 'align-regexp)
   (evil-leader/set-key "oi" 'indent-buffer)
+
+  (load-file "~/.dotfiles/spacemacs.private")
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -218,7 +220,6 @@ layers configuration."
    (quote
     ("33bb2c9b6e965f9c3366c57f8d08a94152954d4e2124dc621953f5a8d7e9ca41" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(ring-bell-function (quote ignore) t)
- '(wakatime-api-key "6e4496a0-d2e3-4c90-a6df-4f4eb08488cd")
  '(wakatime-cli-path "/usr/local/bin/wakatime")
  '(wakatime-python-bin "/usr/local/bin/python"))
 (custom-set-faces
